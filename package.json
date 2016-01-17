@@ -1,0 +1,34 @@
+{
+  "name": "gloss2text",
+  "version": "0.0.1",
+  "description": "A tool to help language production from gloss notations.",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "jasmine",
+    "autotest": "nodemon node_modules/jasmine/bin/jasmine.js",
+    "coverage": "istanbul cover jasmine",
+    "lint": "eslint lib/",
+    "autolint": "nodemon -x eslint lib/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicocube/gloss2text.git"
+  },
+  "keywords": [
+    "natlang",
+    "conlang",
+    "gloss"
+  ],
+  "author": "Nicolas Lochet",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nicocube/gloss2text/issues"
+  },
+  "homepage": "https://github.com/nicocube/gloss2text#readme",
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "istanbul": "^0.4.2",
+    "jasmine": "^2.4.1"
+  }
+}
