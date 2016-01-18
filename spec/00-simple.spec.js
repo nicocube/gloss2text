@@ -15,11 +15,18 @@
 describe("minimal language test:", function() {
     
   var build_parser = require(__dirname+'/../lib/parser')
-    , parser = build_parser({}, {})
   
-  it("parse and match empty string", function() {
-    var actual = parser('')
+  it("parse an empty string", function() {
+    var parser = build_parser({}, {})
+      , actual = parser('')
       , expected = ''
+    expect(actual).toEqual(expected)
+  })
+  
+  it("parse a single", function() {
+    var parser = build_parser({}, { '1s' : { 'OBJ' : 'me' }})
+      , actual = parser('1s.OBJ')
+      , expected = 'me'
     expect(actual).toEqual(expected)
   })
 })
