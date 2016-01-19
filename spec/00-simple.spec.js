@@ -23,8 +23,15 @@ describe("minimal language test:", function() {
     expect(actual).toEqual(expected)
   })
   
-  it("parse a single", function() {
-    var parser = build_parser({}, { '1s' : { 'OBJ' : 'me' }})
+  it("parse a single regular morpheme", function() {
+    var parser = build_parser({ 'verb' : { '3s' : function(w) { return w+'s' } } }, { 'parse' : { t: 'regular', c: 'verb'}})
+      , actual = parser('parse.3s')
+      , expected = 'parses'
+    expect(actual).toEqual(expected)
+  })
+  
+  it("parse a single irregular morpheme", function() {
+    var parser = build_parser({}, { '1s' : { t: 'irregular', f: { 'OBJ' : 'me' }}})
       , actual = parser('1s.OBJ')
       , expected = 'me'
     expect(actual).toEqual(expected)
