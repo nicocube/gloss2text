@@ -11,7 +11,6 @@
 
 'use strict'
 
-
 describe("minimal language test:", function() {
     
   var build_parser = require(__dirname+'/../lib/parser')
@@ -23,6 +22,13 @@ describe("minimal language test:", function() {
     expect(actual).toEqual(expected)
   })
   
+  it("parse a single irregular morpheme", function() {
+    var parser = build_parser({}, { '1s' : { t: 'irregular', f: { 'OBJ' : 'me' }}})
+      , actual = parser('1s.OBJ')
+      , expected = 'me'
+    expect(actual).toEqual(expected)
+  })
+  
   it("parse a single regular morpheme", function() {
     var parser = build_parser({ 'verb' : { '3s' : function(w) { return w+'s' } } }, { 'parse' : { t: 'regular', c: 'verb'}})
       , actual = parser('parse.3s')
@@ -30,11 +36,19 @@ describe("minimal language test:", function() {
     expect(actual).toEqual(expected)
   })
   
-  it("parse a single irregular morpheme", function() {
-    var parser = build_parser({}, { '1s' : { t: 'irregular', f: { 'OBJ' : 'me' }}})
-      , actual = parser('1s.OBJ')
-      , expected = 'me'
+  it("parse a simple sentence", function() {
+    var parser = build_parser({
+      'verb' : { '3-SG' : function(w) { return w+'s' } }
+    }, {
+      '1-SG' : { t: 'irregular', f: { 'SBJ' : 'I', 'OBJ' : 'me' }},
+      '3-F-SG' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
+      'love' : { t: 'regular', c: 'verb'},
+      'and' : { t: 'invariant' }
+    })
+      , actual = parser('1-SG.SBJ love 3-F-SG.OBJ and 3-F-SG.SBJ love.3-SG 1-SG.OBJ')
+      , expected = 'I love her and she loves me'
     expect(actual).toEqual(expected)
   })
+  
 })
     
