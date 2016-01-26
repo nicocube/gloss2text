@@ -11,24 +11,28 @@
 
 'use strict'
 
-describe("minimal language test:", function() {
+describe("basic english grammar test:", function() {
     
   var build_parser = require(__dirname+'/../lib/parser')
   
-  it("parse a simple sentence", function() {
-    var parser = build_parser({
-      rules: {
-        'verb' : { 'PRS' :{ '3-SG' : function(w) { return w+'s' } } }
-      },
-      lemmas: {
-        '1-SG' : { t: 'irregular', f: { 'SBJ' : 'I', 'OBJ' : 'me' }},
-        '3-F-SG' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
-        'love' : { t: 'regular', c: 'verb'},
-        'and' : 'invariant'
-    }})
-      , actual = parser('1-SG.SBJ love 3-F-SG.OBJ and 3-F-SG.SBJ love.PRS.3-SG 1-SG.OBJ')
-      , expected = 'I love her and she loves me'
-    expect(actual).toEqual(expected)
+  var parser = build_parser({
+    rules: {
+      verb : { PRS : { '3s' : '>-s' }, PRT : '>-d', PP : '>-d' }
+    },
+    lexicon: {
+      '1s' : { t: 'irregular', f: { 'SBJ' : 'I', 'OBJ' : 'me' }},
+      '2s' : { t: 'irregular', f: { 'SBJ' : 'you', 'OBJ' : 'you' }},
+      '3ms' : { t: 'irregular', f: { 'SBJ' : 'he', 'OBJ' : 'him' }},
+      '3fs' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
+      'love' : { t: 'regular', c: 'verb'},
+      'and' : 'invariant'
+  }})
+  
+  it("present tense sentence", function() {
+    expect(parser('1s.SBJ love 3fs.OBJ and 3fs.SBJ love.PRS.3s 1s.OBJ')).toEqual('I love her and she loves me')
+  })
+  it("past tense sentence", function() {
+    expect(parser('2s.SBJ love.PRT 3fs.OBJ')).toEqual('you loved her')
   })
   
 })

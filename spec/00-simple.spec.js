@@ -16,21 +16,21 @@ describe("minimal language test:", function() {
   var build_parser = require(__dirname+'/../lib/parser')
   
   it("parse an empty string", function() {
-    var parser = build_parser({lemmas:{}})
+    var parser = build_parser({lexicon:{}})
       , actual = parser('')
       , expected = ''
     expect(actual).toEqual(expected)
   })
   
   it("parse a single irregular morpheme", function() {
-    var parser = build_parser({lemmas: { '1s' : { t: 'irregular', f: { 'OBJ' : 'me' }}}})
+    var parser = build_parser({lexicon: { '1s' : { t: 'irregular', f: { 'OBJ' : 'me' }}}})
       , actual = parser('1s.OBJ')
       , expected = 'me'
     expect(actual).toEqual(expected)
   })
   
   it("parse a single regular morpheme", function() {
-    var parser = build_parser({ rules: { 'verb' : { '3s' : function(w) { return w+'s' } } },lemmas: { 'parse' : { t: 'regular', c: 'verb'}}})
+    var parser = build_parser({ rules: { 'verb' : { '3s' : function(w) { return w+'s' } } },lexicon: { 'parse' : { t: 'regular', c: 'verb'}}})
       , actual = parser('parse.3s')
       , expected = 'parses'
     expect(actual).toEqual(expected)
@@ -38,14 +38,14 @@ describe("minimal language test:", function() {
   
   it("parse a simple sentence", function() {
     var parser = build_parser({
-      rules : { 'verb' : { '3-SG' : function(w) { return w+'s' } } },
-      lemmas : {
-      '1-SG' : { t: 'irregular', f: { 'SBJ' : 'I', 'OBJ' : 'me' }},
-      '3-F-SG' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
+      rules : { 'verb' : { '3s' : function(w) { return w+'s' } } },
+      lexicon : {
+      '1s' : { t: 'irregular', f: { 'SBJ' : 'I', 'OBJ' : 'me' }},
+      '3fs' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
       'love' : { t: 'regular', c: 'verb'},
       'and' : { t: 'invariant' }
     }})
-      , actual = parser('1-SG.SBJ love 3-F-SG.OBJ and 3-F-SG.SBJ love.3-SG 1-SG.OBJ')
+      , actual = parser('1s.SBJ love 3fs.OBJ and 3fs.SBJ love.3s 1s.OBJ')
       , expected = 'I love her and she loves me'
     expect(actual).toEqual(expected)
   })

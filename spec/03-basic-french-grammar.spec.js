@@ -15,25 +15,24 @@ describe("basic french grammar test:", function() {
   
   var build_parser = require(__dirname+'/../lib/parser')
   
+  var parser = build_parser({
+    rules: {
+      'verb-1st-group': {
+        IND : { PRS : { '1s' : '-er>-e', '2s' : '-er>-es', '3s' : '-er>-e', '1p' : '-er>-ons', '2p' : '-er>-ez', '3p' : '-er>-ent',  }}
+      }
+    },
+    lexicon: {
+      '1s' : { t: 'irregular', f: { 'SBJ' : 'je', 'OBJ' : 'moi', 'CLI': 'm\'' }},
+      '2s' : { t: 'irregular', f: { 'SBJ' : 'tu', 'OBJ' : 'toi', 'CLI': 't\'' }},
+      '3hs' : { t: 'irregular', f: { 'SBJ' : 'il', 'OBJ' : 'lui', 'CLI': 'l\'' }},
+      '3fs' : { t: 'irregular', f: { 'SBJ' : 'elle', 'OBJ' : 'elle', 'CLI': 'l\'' }},
+      'aimer' : { t: 'regular', c: 'verb-1st-group'},
+      'et' : { t: 'invariant' }
+  }})
+
   it("parse a simple sentence", function() {
-    var parser = build_parser({
-      rules: {
-        'verb-1st-group': {
-          IND : { PRS : { '1s' : '-er>-e', '2s' : '-er>-es', '3s' : '-er>-e', '1p' : '-er>-ons', '2p' : '-er>-ez', '3p' : '-er>-ent',  }}
-        }
-      },
-      lemmas: {
-        '1s' : { t: 'irregular', f: { 'SBJ' : 'je', 'OBJ' : 'moi', 'CLI': 'm\'' }},
-        '2s' : { t: 'irregular', f: { 'SBJ' : 'tu', 'OBJ' : 'toi', 'CLI': 't\'' }},
-        '3hs' : { t: 'irregular', f: { 'SBJ' : 'il', 'OBJ' : 'lui', 'CLI': 'l\'' }},
-        '3fs' : { t: 'irregular', f: { 'SBJ' : 'elle', 'OBJ' : 'elle', 'CLI': 'l\'' }},
-        'aimer' : { t: 'regular', c: 'verb-1st-group'},
-        'et' : { t: 'invariant' }
-    }})
-      , actual = parser('1s.SBJ 3fs.CLI+aimer.IND.PRS.1s et 3fs.SBJ 1s.CLI+aimer.IND.PRS.3s')
-      , expected = 'je l\'aime et elle m\'aime'
-    expect(actual).toEqual(expected)
+    expect(parser('1s.SBJ 3fs.CLI-aimer.IND.PRS.1s et 3fs.SBJ 1s.CLI-aimer.IND.PRS.3s')).toEqual('je l\'aime et elle m\'aime')
   })
   
 })
-    
+
