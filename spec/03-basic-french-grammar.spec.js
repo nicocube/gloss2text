@@ -30,9 +30,12 @@ describe("basic french grammar test:", function() {
       'and' : { t: 'invariant', v: 'et' }
   }})
 
-  it("parse a simple sentence", function() {
+  it("present tense sentence", function() {
     expect(parser('1s.SBJ 3fs.CLI-love.IND.PRS.1s and 3fs.SBJ 1s.CLI-love.IND.PRS.3s')).toEqual('je l\'aime et elle m\'aime')
   })
   
+  it("infinitive sentence", function() {
+    expect(parser('love')).toEqual('aimer')
+  })
 })
 
