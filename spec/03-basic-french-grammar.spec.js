@@ -35,6 +35,7 @@ describe("basic french grammar test:", function() {
   })
   
   it("infinitive sentence", function() {
+    expect(parser('love.INF')).toEqual('aimer')
     expect(parser('love')).toEqual('aimer')
   })
 })
