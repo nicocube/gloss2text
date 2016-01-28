@@ -25,7 +25,7 @@ describe("basic english grammar test:", function() {
       '3ms' : { t: 'irregular', f: { 'SBJ' : 'he', 'OBJ' : 'him' }},
       '3fs' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
       'love' : { t: 'regular', c: 'verb'},
-      'and' : 'invariant'
+      'and' : { t: 'invariant' }
   }})
   
   it("present tense sentence", function() {

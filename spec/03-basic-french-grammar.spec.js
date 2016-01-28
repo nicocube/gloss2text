@@ -26,12 +26,12 @@ describe("basic french grammar test:", function() {
       '2s' : { t: 'irregular', f: { 'SBJ' : 'tu', 'OBJ' : 'toi', 'CLI': 't\'' }},
       '3hs' : { t: 'irregular', f: { 'SBJ' : 'il', 'OBJ' : 'lui', 'CLI': 'l\'' }},
       '3fs' : { t: 'irregular', f: { 'SBJ' : 'elle', 'OBJ' : 'elle', 'CLI': 'l\'' }},
-      'aimer' : { t: 'regular', c: 'verb-1st-group'},
-      'et' : { t: 'invariant' }
+      'love' : { t: 'regular', c: 'verb-1st-group', v: 'aimer'},
+      'and' : { t: 'invariant', v: 'et' }
   }})
 
   it("parse a simple sentence", function() {
-    expect(parser('1s.SBJ 3fs.CLI-aimer.IND.PRS.1s et 3fs.SBJ 1s.CLI-aimer.IND.PRS.3s')).toEqual('je l\'aime et elle m\'aime')
+    expect(parser('1s.SBJ 3fs.CLI-love.IND.PRS.1s and 3fs.SBJ 1s.CLI-love.IND.PRS.3s')).toEqual('je l\'aime et elle m\'aime')
   })
   
 })
