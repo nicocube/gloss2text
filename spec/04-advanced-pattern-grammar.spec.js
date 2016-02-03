@@ -43,14 +43,20 @@ describe("advanced pattern grammar test:", function() {
       '1s' : { c: 'nominal', v: 'a'},
       '2s' : { c: 'nominal', v: 'er'},
       '3sa' : { c: 'nominal', v: 'lo'},
+      'woman':{ c: 'nominal', v: 'rin'},
       'forest':{ c: 'nominal', v: 'lorth'},
       'love' : { c: 'verbal', v: 'mun'},
+      'love' : { c: 'verbal', v: 'mis'},
       'beautiful' : { c: 'verbal', v: 'laen' }
     }
   })
 
-  it("intra syllabic", function() {
+  it("intra syllabic 1", function() {
     expect(parser('1s.GEN beautiful.ATTR forest.ABS 2s.NOM love.IPFV.INT')).toEqual('ei leian lorth ern muon')
+  })
+
+  it("intra syllabic 2", function() {
+    expect(parser('beautiful.ATTR woman.NOM forest.ABS love.IPFV')).toEqual('leian rind lorth mun')
   })
 })
 
