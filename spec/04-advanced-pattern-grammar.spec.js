@@ -46,7 +46,7 @@ describe("advanced pattern grammar test:", function() {
       'woman':{ c: 'nominal', v: 'rin'},
       'forest':{ c: 'nominal', v: 'lorth'},
       'love' : { c: 'verbal', v: 'mun'},
-      'love' : { c: 'verbal', v: 'mis'},
+      'want' : { c: 'verbal', v: 'mis'},
       'beautiful' : { c: 'verbal', v: 'laen' }
     }
   })
@@ -56,7 +56,7 @@ describe("advanced pattern grammar test:", function() {
   })
 
   it("intra syllabic 2", function() {
-    expect(parser('beautiful.ATTR woman.NOM forest.ABS love.IPFV')).toEqual('leian rind lorth mun')
+    expect(parser('beautiful.ATTR woman.NOM forest.GEN love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
   })
 })
 
