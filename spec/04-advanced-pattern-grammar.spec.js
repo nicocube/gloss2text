@@ -16,22 +16,27 @@ describe("advanced pattern grammar test:", function() {
   var build_parser = require(__dirname+'/../lib/parser')
   
   var parser = build_parser({
+    phonemes: {
+      V: 'a e i o u',
+      C: 't d p b c g f v th dh s z sh j m n r l'
+    },
     syllable: {
-      O: '',
-      N: '',
-      C: ''
+      O: '_ C CC',
+      N: 'V VV VVV',
+      K: '_ C CC'
     },
     transformations: {
       raising: {
-        a: 'ei', e: 'ia', i: 'ae', o: 'ue', u: 'iu'
+        a: 'ei', e: 'ia', i: 'ae', o: 'ue', u: 'iu', ae: 'eia'
       }
     },
     rules: {      
       nominal: {
-        GEN: '-NC>-N(raising)C'
+        NOM: ['-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
+        GEN: '-NK>-N(raising)K'
       },
       verbal: {
-        
+        ATTR: '-NK>-N(raising)K'
       }
     },
     lexicon: {
@@ -40,13 +45,12 @@ describe("advanced pattern grammar test:", function() {
       '3sa' : { c: 'nominal', v: 'lo'},
       'forest':{ c: 'nominal', v: 'lorth'},
       'love' : { c: 'verbal', v: 'mun'},
-      'want' : { c: 'verbal', v: 'mis' },
       'beautiful' : { c: 'verbal', v: 'laen' }
     }
   })
 
   it("intra syllabic", function() {
-    expect(parser('')).toEqual('')
+    expect(parser('1s.GEN beautiful.ATTR forest.ABS 2s.NOM love.IPFV.INT')).toEqual('ei leian lorth ern muon')
   })
 })
 
