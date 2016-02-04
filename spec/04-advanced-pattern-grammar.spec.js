@@ -18,26 +18,28 @@ describe("advanced pattern grammar test:", function() {
   var parser = build_parser({
     phonemes: {
       V: 'a e i o u',
-      C: 't d p b c g f v th dh s z sh j m n r l'
-    },
-    syllable: {
-      forms: ['N', 'ON', 'NK', 'ONK'],
+      C: 't d p b c g f v th dh s z sh j m n r l',
       O: 'C CC',
       N: 'V VV VVV',
       K: 'C CC'
     },
+    syllable: ['N', 'ON', 'NK', 'ONK'],
     transformations: {
-      raising: {
+      R: {
         a: 'ei', e: 'ia', i: 'ae', o: 'ue', u: 'iu', ae: 'eia'
+      },
+      L: {
+        a: 'au', e: 'eo', i: 'ie', o: 'ou', u: 'uo', ae: 'aio'
       }
     },
     rules: {      
       nominal: {
         NOM: ['-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
-        GEN: ['-NK>-N(raising)K', '-N>-N(raising)']
+        GEN: ['-NK>-N(R)K', '-N>-N(R)']
       },
       verbal: {
-        ATTR: ['-NK>-N(raising)K', '-N>-N(raising)']
+        ATTR: ['-NK>-N(R)K', '-N>-N(R)'],
+        INT:  ['-NK>-N(L)K', '-N>-N(L)'],
       }
     },
     lexicon: {
