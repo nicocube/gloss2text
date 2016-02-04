@@ -21,9 +21,9 @@ describe("advanced pattern grammar test:", function() {
       C: 't d p b c g f v th dh s z sh j m n r l'
     },
     syllable: {
-      O: '_ C CC',
+      O: 'C CC',
       N: 'V VV VVV',
-      K: '_ C CC'
+      K: 'C CC'
     },
     transformations: {
       raising: {
@@ -33,10 +33,10 @@ describe("advanced pattern grammar test:", function() {
     rules: {      
       nominal: {
         NOM: ['-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
-        GEN: '-NK>-N(raising)K'
+        GEN: ['-NK>-N(raising)K', '-N>-N(raising)']
       },
       verbal: {
-        ATTR: '-NK>-N(raising)K'
+        ATTR: ['-NK>-N(raising)K', '-N>-N(raising)']
       }
     },
     lexicon: {
