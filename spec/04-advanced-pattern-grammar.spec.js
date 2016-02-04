@@ -21,6 +21,7 @@ describe("advanced pattern grammar test:", function() {
       C: 't d p b c g f v th dh s z sh j m n r l'
     },
     syllable: {
+      forms: ['N', 'ON', 'NK', 'ONK'],
       O: 'C CC',
       N: 'V VV VVV',
       K: 'C CC'
