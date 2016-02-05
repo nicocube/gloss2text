@@ -25,21 +25,21 @@ describe("advanced pattern grammar test:", function() {
     },
     syllable: ['N', 'ON', 'NK', 'ONK'],
     transformations: {
-      R: {
+      r: {
         a: 'ei', e: 'ia', i: 'ae', o: 'ue', u: 'iu', ae: 'eia'
       },
-      L: {
+      l: {
         a: 'au', e: 'eo', i: 'ie', o: 'ou', u: 'uo', ae: 'aio'
       }
     },
     rules: {      
       nominal: {
         NOM: ['-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
-        GEN: ['-NK>-N(R)K', '-N>-N(R)']
+        GEN: ['-NK>-r(N)K', '-N>-r(N)']
       },
       verbal: {
-        ATTR: ['-NK>-N(R)K', '-N>-N(R)'],
-        INT:  ['-NK>-N(L)K', '-N>-N(L)'],
+        ATTR: ['-NK>-r(N)K', '-N>-r(N)'],
+        INT:  ['-NK>-l(N)K', '-N>-l(N)'],
       }
     },
     lexicon: {
