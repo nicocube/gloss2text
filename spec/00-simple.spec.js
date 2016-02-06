@@ -23,14 +23,14 @@ describe("minimal language test:", function() {
   })
   
   it("parse a single irregular morpheme", function() {
-    var parser = build_parser({lexicon: { '1s' : { t: 'irregular', f: { 'OBJ' : 'me' }}}})
+    var parser = build_parser({lexicon: { '1s' : { irregular: { 'OBJ' : 'me' }}}})
       , actual = parser('1s.OBJ')
       , expected = 'me'
     expect(actual).toEqual(expected)
   })
   
   it("parse a single regular morpheme", function() {
-    var parser = build_parser({ rules: { 'verb' : { '3s' : function(w) { return w+'s' } } },lexicon: { 'parse' : { t: 'regular', c: 'verb'}}})
+    var parser = build_parser({ rules: { 'verb' : { '3s' : function(w) { return w+'s' } } },lexicon: { 'parse' : { verb: 'parse' }}})
       , actual = parser('parse.3s')
       , expected = 'parses'
     expect(actual).toEqual(expected)
@@ -40,10 +40,10 @@ describe("minimal language test:", function() {
     var parser = build_parser({
       rules : { 'verb' : { '3s' : function(w) { return w+'s' } } },
       lexicon : {
-      '1s' : { t: 'irregular', f: { 'SBJ' : 'I', 'OBJ' : 'me' }},
-      '3fs' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
-      'love' : { t: 'regular', c: 'verb'},
-      'and' : { t: 'invariant' }
+      '1s' : { irregular: { 'SBJ' : 'I', 'OBJ' : 'me' }},
+      '3fs' : { irregular: { 'SBJ' : 'she', 'OBJ' : 'her' }},
+      'love' : { verb: 'love'},
+      'and' : { invariant: 'and' }
     }})
       , actual = parser('1s.SBJ love 3fs.OBJ and 3fs.SBJ love.3s 1s.OBJ')
       , expected = 'I love her and she loves me'

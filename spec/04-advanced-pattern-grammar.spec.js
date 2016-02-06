@@ -43,14 +43,14 @@ describe("advanced pattern grammar test:", function() {
       }
     },
     lexicon: {
-      '1s' : { c: 'nominal', v: 'a'},
-      '2s' : { c: 'nominal', v: 'er'},
-      '3sa' : { c: 'nominal', v: 'lo'},
-      'woman':{ c: 'nominal', v: 'rin'},
-      'forest':{ c: 'nominal', v: 'lorth'},
-      'love' : { c: 'verbal', v: 'mun'},
-      'want' : { c: 'verbal', v: 'mis'},
-      'beautiful' : { c: 'verbal', v: 'laen' }
+      '1s' : { nominal: 'a'},
+      '2s' : { nominal: 'er'},
+      '3sa' : { nominal: 'lo'},
+      'woman':{ nominal: 'rin'},
+      'forest':{ nominal: 'lorth'},
+      'love' : { verbal: 'mun'},
+      'want' : { verbal: 'mis'},
+      'beautiful' : { verbal: 'laen' }
     }
   })
 

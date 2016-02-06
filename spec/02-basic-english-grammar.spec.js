@@ -20,12 +20,12 @@ describe("basic english grammar test:", function() {
       verb : { PRS : { '3s' : '>-s' }, PRT : '>-d', PP : '>-d' }
     },
     lexicon: {
-      '1s' : { t: 'irregular', f: { 'SBJ' : 'I', 'OBJ' : 'me' }},
-      '2s' : { t: 'irregular', f: { 'SBJ' : 'you', 'OBJ' : 'you' }},
-      '3ms' : { t: 'irregular', f: { 'SBJ' : 'he', 'OBJ' : 'him' }},
-      '3fs' : { t: 'irregular', f: { 'SBJ' : 'she', 'OBJ' : 'her' }},
-      'love' : { t: 'regular', c: 'verb'},
-      'and' : { t: 'invariant' }
+      '1s' : { irregular: { 'SBJ' : 'I', 'OBJ' : 'me' }},
+      '2s' : { irregular: { 'SBJ' : 'you', 'OBJ' : 'you' }},
+      '3ms' : { irregular: { 'SBJ' : 'he', 'OBJ' : 'him' }},
+      '3fs' : { irregular: { 'SBJ' : 'she', 'OBJ' : 'her' }},
+      'love' : { verb: 'love' },
+      'and' : { invariant: 'and' }
   }})
   
   it("present tense sentence", function() {

@@ -9,16 +9,17 @@
   var cli = meow(
     '\n  Usages\n'+
     '    $ gloss2text\n'+
-    '    $ gloss2text grammar.json\n\n'+
+    '    $ gloss2text <grammarfile>\n\n'+
     '      REPL mode, any gloss typed on the command-line is parsed.\n'+
     '      /h or /help for inline help about available commands\n\n'+
-    '    $ gloss2text grammar.json gloss.txt\n\n'+
+    '    $ gloss2text <grammarfile> <glossfile>\n\n'+
     '      Options\n'+
     '        -o, --out\tfile to send output to (otherwise goes to command-line)\n'+
     '        -i, --interlinear\toutput both result text on one line and original gloss under\n'+
     '\n'+
     '      Examples\n'+
-    '        $ gloss grammar.json gloss.txt -i -o glossed\n',
+    '        $ gloss grammar.json gloss.txt -i\n',
+    '        $ gloss grammar.yml gloss.txt -i -o glossed.txt\n',
     {
       alias: {
         o: 'output',

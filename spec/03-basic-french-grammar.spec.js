@@ -22,12 +22,12 @@ describe("basic french grammar test:", function() {
       }
     },
     lexicon: {
-      '1s' : { t: 'irregular', f: { 'SBJ' : 'je', 'OBJ' : 'moi', 'CLI': 'm\'' }},
-      '2s' : { t: 'irregular', f: { 'SBJ' : 'tu', 'OBJ' : 'toi', 'CLI': 't\'' }},
-      '3hs' : { t: 'irregular', f: { 'SBJ' : 'il', 'OBJ' : 'lui', 'CLI': 'l\'' }},
-      '3fs' : { t: 'irregular', f: { 'SBJ' : 'elle', 'OBJ' : 'elle', 'CLI': 'l\'' }},
-      'love' : { t: 'regular', c: 'verb-1st-group', v: 'aimer'},
-      'and' : { t: 'invariant', v: 'et' }
+      '1s' : { irregular: { 'SBJ' : 'je', 'OBJ' : 'moi', 'CLI': 'm\'' }},
+      '2s' : { irregular: { 'SBJ' : 'tu', 'OBJ' : 'toi', 'CLI': 't\'' }},
+      '3hs' : { irregular: { 'SBJ' : 'il', 'OBJ' : 'lui', 'CLI': 'l\'' }},
+      '3fs' : { irregular: { 'SBJ' : 'elle', 'OBJ' : 'elle', 'CLI': 'l\'' }},
+      'love' : { 'verb-1st-group': 'aimer'},
+      'and' : { invariant: 'et' }
   }})
 
   it("present tense sentence", function() {
