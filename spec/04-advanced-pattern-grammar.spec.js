@@ -39,7 +39,7 @@ describe("advanced pattern grammar test:", function() {
       },
       verbal: {
         ATTR: ['-NK>-r(N)K', '-N>-r(N)'],
-        INT:  ['-NK>-l(N)K', '-N>-l(N)'],
+        INT:  ['-NK>-l(N)K', '-N>-l(N)']
       }
     },
     lexicon: {
@@ -55,11 +55,11 @@ describe("advanced pattern grammar test:", function() {
   })
 
   it("intra syllabic 1", function() {
-    expect(parser('1s.GEN beautiful.ATTR forest.ABS 2s.NOM love.IPFV.INT')).toEqual('ei leian lorth ern muon')
+    expect(parser('1s.GEN beautiful.ATTR forest.ABS 2s.NOM love.INT')).toEqual('ei leian lorth ern muon')
   })
 
   it("intra syllabic 2", function() {
-    expect(parser('beautiful.ATTR woman.NOM forest.GEN love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
+    expect(parser('beautiful.ATTR woman.NOM forest.GEN love.INF want')).toEqual('leian rind luerth mun mis')
   })
 })
 
