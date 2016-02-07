@@ -39,9 +39,11 @@
 
     var parser_builder = require(__dirname+'/lib/parser.js')
       , fs = require('fs')
+      , yaml = require('js-yaml')
+      , parse = /yml$/.test(cli.input[0]) ? yaml.safeLoad : JSON.parse 
 
     if (cli.input.length==2) {
-      var parser = parser_builder(JSON.parse(fs.readFileSync(cli.input[0], 'utf8')))
+      var parser = parser_builder(parse(fs.readFileSync(cli.input[0], 'utf8')))
         , text = fs.readFileSync(cli.input[1], 'utf8')
       console.log(parser(text))
     }
