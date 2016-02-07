@@ -34,33 +34,48 @@ describe("advanced pattern grammar test:", function() {
     },
     rules: {      
       nominal: {
-        NOM: ['-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
-        GEN: ['-NK>-r(N)K', '-N>-r(N)']
+        ABS: '->-',
+        NOM: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
+        GEN: ['-NK>-r(N)K', '-N>-r(N)'],
+        CNJ: ['-K>-Kith', '-N>-Ngith']
       },
       verbal: {
+        INF: '->-',
         ATTR: ['-NK>-r(N)K', '-N>-r(N)'],
-        INT:  ['-NK>-l(N)K', '-N>-l(N)']
+        IPFV: ['-K>-K', '-N>-Nn'],
+        INT: ['-NK>-l(N)K', '-N>-l(N)'],
+        CNJ: '>-gim'
       }
     },
     lexicon: {
-      '1s' : { nominal: 'a'},
-      '2s' : { nominal: 'er'},
-      '3sa' : { nominal: 'lo'},
+      '1s': { nominal: 'a'},
+      '2s': { nominal: 'er'},
+      '3sa': { nominal: 'lo'},
       'woman':{ nominal: 'rin'},
       'forest':{ nominal: 'lorth'},
-      'love' : { verbal: 'mun'},
-      'want' : { verbal: 'mis'},
-      'beautiful' : { verbal: 'laen' }
+      'love': { verbal: 'mun'},
+      'want': { verbal: 'mis'},
+      'beautiful': { verbal: 'laen' },
+      'tell': { verbal: 'fe' },
     }
   })
 
   it("intra syllabic 1", function() {
-    expect(parser('1s.GEN beautiful.ATTR forest.ABS 2s.NOM love.INT')).toEqual('ei leian lorth ern muon')
+    expect(parser('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT')).toEqual('ei leian lorth ern muon')
   })
 
   it("intra syllabic 2", function() {
-    expect(parser('beautiful.ATTR woman.NOM forest.GEN love.INF want')).toEqual('leian rind luerth mun mis')
+    expect(parser('beautiful.IPFV.ATTR woman.NOM forest.GEN love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
   })
+  
+  it("imperfecive", function() {
+    expect(parser('1s.NOM woman.ABS tell.IPFV')).toEqual('an rin fen')
+  })
+  
+  it("conjunction nominal", function() {
+    expect(parser('1s.NOM woman.NOM.CNJ tell.IPFV')).toEqual('an rindith fen')
+  })
+  
 })
 
 
