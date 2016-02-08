@@ -3,7 +3,7 @@
 //try {
   'use strict'
   var meow = require('meow')
-  //  , chalk = require('chalk')
+    , chalk = require('chalk')
 
   // temporary test of meow
   var cli = meow(
@@ -45,7 +45,16 @@
     if (cli.input.length==2) {
       var parser = parser_builder(parse(fs.readFileSync(cli.input[0], 'utf8')))
         , text = fs.readFileSync(cli.input[1], 'utf8')
-      console.log(parser(text))
+        , lines = text.split('\n')
+      
+      lines.forEach(function(l) {
+        if (/^\s*$/.test(l) || l.startsWith('>')) {          
+          process.stdout.write(l+'\n');
+        } else {
+          process.stdout.write(chalk.cyan(parser(l))+'\n')
+          if (cli.flags.i) process.stdout.write(chalk.yellow(l)+'\n');
+        }
+      })
     }
   }
 
