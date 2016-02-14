@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-//try {
+try {
   'use strict'
   var meow = require('meow')
     , chalk = require('chalk')
@@ -40,27 +40,27 @@
     var parser_builder = require(__dirname+'/lib/parser.js')
       , fs = require('fs')
       , yaml = require('js-yaml')
-      , parse = /yml$/.test(cli.input[0]) ? yaml.safeLoad : JSON.parse 
+      , parse = /yml$/.test(cli.input[0]) ? yaml.safeLoad : JSON.parse
 
     if (cli.input.length==2) {
       var parser = parser_builder(parse(fs.readFileSync(cli.input[0], 'utf8')))
         , text = fs.readFileSync(cli.input[1], 'utf8')
         , lines = text.split('\n')
-      
+
       lines.forEach(function(l) {
-        if (/^\s*$/.test(l) || l.startsWith('>')) {          
-          process.stdout.write(l+'\n');
+        if (/^\s*$/.test(l) || l.startsWith('>')) {
+          process.stdout.write(l+'\n')
         } else {
           process.stdout.write(chalk.cyan(parser(l))+'\n')
-          if (cli.flags.i) process.stdout.write(chalk.yellow(l)+'\n');
+          if (cli.flags.i) process.stdout.write(chalk.yellow(l)+'\n')
         }
       })
     }
   }
 
-/*
+//*
 } catch(e) {
-  console.log(e.message)
+  process.stderr.write(chalk.magenta('ERROR:'+e.message+'\n'))
   process.exit(1)
 }
-*/
+//*/
