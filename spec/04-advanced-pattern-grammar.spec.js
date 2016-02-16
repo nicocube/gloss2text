@@ -72,10 +72,13 @@ describe("advanced pattern grammar test:", function() {
     expect(parser('1s.NOM woman.ABS tell.IPFV')).toEqual('an rin fen')
   })
   
-  it("conjunction nominal", function() {
+  it("conjunction nominal, morphological rule", function() {
     expect(parser('1s.NOM woman.NOM.CNJ tell.IPFV')).toEqual('an rindith fen')
   })
   
+  it("conjunction nominal, agglutination rule", function() {
+    expect(parser('1s.NOM woman.NOM-CNJ tell.IPFV')).toEqual('an rindith fen')
+  })
 })
 
 
