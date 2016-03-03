@@ -21,6 +21,20 @@ describe("minimal language test:", function() {
       , expected = ''
     expect(actual).toEqual(expected)
   })
+
+  it("fail on word with empty lexicon", function() {
+    expect(function() { 
+      var parser = build_parser({lexicon:{}})
+      parser('plop')
+    }).toThrow()
+  })
+
+  it("fail on word not in lexicon", function() {
+    expect(function() { 
+      var parser = build_parser({lexicon:{plip: {stuff: 'plip'}}})
+      parser('plop')
+    }).toThrow()
+  })
   
   it("parse a single irregular morpheme", function() {
     var parser = build_parser({lexicon: { '1s' : { irregular: { 'OBJ' : 'me' }}}})

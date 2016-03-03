@@ -34,9 +34,22 @@ describe("advanced pattern grammar test:", function() {
     },
     rules: {      
       nominal: {
-        ABS: '->-',
-        NOM: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
-        GEN: ['-NK>-r(N)K', '-N>-r(N)'],
+        ABS: {
+          SG: '->-',
+          PL: ['-NK>-l(N)K', '-N>-l(N)']
+        },
+        NOM: {
+          SG: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
+          PL: ['-N>-l(N)n', '-Nn>-l(N)nd', '-Nr>-l(N)rn', '-Nl>-l(N)ln', '-NK>-l(N)K-on']
+        },
+        GEN: {
+          SG: ['-NK>-r(N)K', '-N>-r(N)'],
+          PL: ['-NC>-l(N)C-f(N)', '-NCC>-l(N)C-f(N)C', '-N>-l(N)r-f(N)']
+        },
+        VOC: {
+          SG: ['-C>-CCe', '-CC>-CiCe', '-N>-Nme'],
+          PL: ['-NC>-l(N)CCe', '-NCC>-l(N)CoCe', '-N>-l(N)me']
+        },
         CNJ: ['-K>-Kith', '-N>-Ngith']
       },
       verbal: {
@@ -61,23 +74,27 @@ describe("advanced pattern grammar test:", function() {
   })
 
   it("intra syllabic 1", function() {
-    expect(parser('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT')).toEqual('ei leian lorth ern muon')
+    expect(parser('1s.GEN.SG beautiful.IPFV.ATTR forest.ABS 2s.NOM.SG love.IPFV.INT')).toEqual('ei leian lorth ern muon')
   })
 
   it("intra syllabic 2", function() {
-    expect(parser('beautiful.IPFV.ATTR woman.NOM forest.GEN love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
+    expect(parser('beautiful.IPFV.ATTR woman.NOM.SG forest.GEN.SG love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
   })
   
   it("imperfecive", function() {
-    expect(parser('1s.NOM woman.ABS tell.IPFV')).toEqual('an rin fen')
+    expect(parser('1s.NOM.SG woman.ABS.SG tell.IPFV')).toEqual('an rin fen')
   })
   
   it("conjunction nominal, morphological rule", function() {
-    expect(parser('1s.NOM woman.NOM.CNJ tell.IPFV')).toEqual('an rindith fen')
+    expect(parser('woman.ABS.PL.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fen')
   })
   
   it("conjunction nominal, agglutination rule", function() {
-    expect(parser('1s.NOM woman.NOM-CNJ tell.IPFV')).toEqual('an rindith fen')
+    expect(parser('woman.ABS.PL-CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fen')
+  })
+  
+  it("match terminal and non-terminal '-Nn>-l(N)nd'", function() {
+    expect(parser('woman.NOM.PL')).toEqual('riend')
   })
 })
 
