@@ -30,6 +30,9 @@ describe("advanced pattern grammar test:", function() {
       },
       l: {
         a: 'au', e: 'eo', i: 'ie', o: 'ou', u: 'uo', ae: 'aio'
+      },
+      f: {
+        a: 'e', e: 'i', i: 'i', o: 'e', u: 'i'
       }
     },
     rules: {      
@@ -40,14 +43,14 @@ describe("advanced pattern grammar test:", function() {
         },
         NOM: {
           SG: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
-          PL: ['-N>-l(N)n', '-Nn>-l(N)nd', '-Nr>-l(N)rn', '-Nl>-l(N)ln', '-NK>-l(N)K-on']
+          PL: ['-N>-l(N)n', '-Nn>-l(N)nd', '-Nr>-l(N)rn', '-Nl>-l(N)ln', '-NK>-l(N)Kon']
         },
         GEN: {
           SG: ['-NK>-r(N)K', '-N>-r(N)'],
-          PL: ['-NC>-l(N)C-f(N)', '-NCC>-l(N)C-f(N)C', '-N>-l(N)r-f(N)']
+          PL: ['-NC>-l(N)C-f(N)', '-NCC>-l(N)Cf(N)C', '-N>-l(N)rf(N)']
         },
         VOC: {
-          SG: ['-C>-CCe', '-CC>-CiCe', '-N>-Nme'],
+          SG: ['-CC>-CiCe', '-C>-CCe', '-N>-Nme'],
           PL: ['-NC>-l(N)CCe', '-NCC>-l(N)CoCe', '-N>-l(N)me']
         },
         CNJ: ['-K>-Kith', '-N>-Ngith']
@@ -70,6 +73,7 @@ describe("advanced pattern grammar test:", function() {
       'want': { verbal: 'mis'},
       'beautiful': { verbal: 'laen' },
       'tell': { verbal: 'fe' },
+      'good': { verbal: 'slan' }
     }
   })
 
@@ -96,6 +100,24 @@ describe("advanced pattern grammar test:", function() {
   it("match terminal and non-terminal '-Nn>-l(N)nd'", function() {
     expect(parser('woman.NOM.PL')).toEqual('riend')
   })
+
+  it("match terminal and non-terminal '-NK>-l(N)Kon' for double consonnant", function() {
+    expect(parser('forest.NOM.PL')).toEqual('lourthon')
+  })
+
+  it("match terminal and non-terminal '-NK>-l(N)Kon' for double consonnant", function() {
+    expect(parser('forest.VOC.SG')).toEqual('lorithe')
+  })
+  
+  it("match terminal and non-terminal '-NCC>-l(N)CoCe' for double consonnant", function() {
+    expect(parser('forest.VOC.PL')).toEqual('lourothe')
+  })
+  
+  it("match terminal and non-terminal '-NCC>-l(N)C+f(N)C' for double consonnant", function() {
+    expect(parser('forest.GEN.PL')).toEqual('loureth')
+  })
+  
+  //good.MOD.CAU.IPFV.POS 
+  
+  //good.MOD.CAU.PFV.POS
 })
-
-
