@@ -15,11 +15,11 @@ describe("minimal language test:", function() {
     
   var build_parser = require(__dirname+'/../lib/parser')
   
-  it("parse an empty string", function() {
-    var parser = build_parser({lexicon:{}})
-      , actual = parser('')
-      , expected = ''
-    expect(actual).toEqual(expected)
+  it("fail on empty string", function() {
+    expect(function() { 
+      var parser = build_parser({lexicon:{}})
+      parser('')
+    }).toThrow()
   })
 
   it("fail on word with empty lexicon", function() {
