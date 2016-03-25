@@ -11,3 +11,14 @@
 
 'use strict'
 
+
+describe("test tokenizer stream", function() {
+  
+  var stream = require('stream')
+    , build_parser = require(__dirname+'/../lib/parser')
+    , tokenizer = require(__dirname+'/../lib/tokenizer')(function(s){ console.log(s); return s })
+    
+  it("", function() {
+    
+  })
+})
