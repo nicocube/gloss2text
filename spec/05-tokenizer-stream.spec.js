@@ -17,7 +17,7 @@ describe("test tokenizer stream", function() {
   var stream = require('stream')
     , tokenizer = require(__dirname+'/../lib/tokenizer')(function(s){ console.log(s); return s })
   
-  it("", function() {
+  it("tokenize a string", function() {
     
     var i = 0
       , rs = new stream.Readable()
