@@ -15,12 +15,13 @@
 describe("test tokenizer stream", function() {
   
   var stream = require('stream')
-    , tokenizer = require(__dirname+'/../lib/tokenizer')()
+    , Tokenizer = require(__dirname+'/../lib/tokenizer')
   
   it("tokenize a string", function(done) {
     
     var i = 0
       , pt = new stream.PassThrough()
+      , tk = Tokenizer()
       , expected = [
         {gloss:'1s'},
         {inter:'.'},
@@ -57,7 +58,7 @@ describe("test tokenizer stream", function() {
       })
 
     pt
-    .pipe(tokenizer)
+    .pipe(tk)
     .pipe(ws)
     .on('finish', function () {
         expect(i).toEqual(24)
@@ -67,5 +68,60 @@ describe("test tokenizer stream", function() {
     pt.write('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT?')
     pt.end()
 
+  })
+  
+  it("tokenize multiple string", function(done) {
+    
+    var i = 0
+      , pt = new stream.PassThrough()
+      , tk = Tokenizer()
+      , expected = [
+        {gloss:'1s'},
+        {inter:'.'},
+        {gloss:'GEN'},
+        {blank: ' '},
+        {gloss:'beautiful'},
+        {inter:'.'},
+        {gloss:'IPFV'},
+        {inter:'.'},
+        {gloss:'ATTR'},
+        {blank: ' '},
+        {gloss:'forest'},
+        {inter:'.'},
+        {gloss:'ABS'},
+        {blank: ' '},
+        {gloss:'2s'},
+        {inter:'.'},
+        {gloss:'NOM'},
+        {blank: ' '},
+        {gloss:'love'},
+        {inter:'.'},
+        {gloss:'IPFV'},
+        {inter:'.'},
+        {gloss:'INT'},
+        {blank: '?'},
+      ]
+      , ws = new stream.Writable({
+        objectMode: true,
+        write: function(d, encoding, next) {
+          expect(d).toEqual(expected[i])
+          i+=1
+          next()
+        }
+      })
+
+    pt
+    .pipe(tk)
+    .pipe(ws)
+    .on('finish', function () {
+        expect(i).toEqual(24)
+        done()
+    })
+  
+    pt.write('1s.GEN beautiful.IP')
+    pt.write('FV.ATTR fo')
+    pt.write('rest.ABS ')
+    pt.write('2s.NOM love.IPFV.INT?')
+    pt.end()
   })
 })
