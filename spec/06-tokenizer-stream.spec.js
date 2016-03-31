@@ -15,12 +15,12 @@
 describe("test tokenizer stream", function() {
   
   var stream = require('stream')
-    , tokenizer = require(__dirname+'/../lib/tokenizer')(function(s){ console.log(s); return s })
+    , tokenizer = require(__dirname+'/../lib/tokenizer')()
   
-  it("tokenize a string", function() {
+  it("tokenize a string", function(done) {
     
     var i = 0
-      , rs = new stream.Readable()
+      , pt = new stream.PassThrough()
       , expected = [
         {gloss:'1s'},
         {inter:'.'},
@@ -55,11 +55,17 @@ describe("test tokenizer stream", function() {
           next()
         }
       })
-  
-    rs.push('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT?')
-    rs.push(null)
 
-    rs.pipe(tokenizer).pipe(ws)
+    pt
+    .pipe(tokenizer)
+    .pipe(ws)
+    .on('finish', function () {
+        expect(i).toEqual(24)
+        done()
+    })
+  
+    pt.write('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT?')
+    pt.end()
 
   })
 })
