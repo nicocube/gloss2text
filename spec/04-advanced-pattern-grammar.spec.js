@@ -93,7 +93,7 @@ describe("advanced pattern grammar test:", function() {
     expect(parser('woman.ABS.PL.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fen')
   })
   
-  it("conjunction nominal, agglutination rule", function() {
+  xit("conjunction nominal, agglutination rule", function() {
     expect(parser('woman.ABS.PL-CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fen')
   })
   
