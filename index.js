@@ -58,9 +58,11 @@ try {
     }
   }
 
-//*
+/*
 } catch(e) {
   process.stderr.write(chalk.magenta('ERROR:'+e.message+'\n'))
   process.exit(1)
-}
 //*/
+} finally {
+  process.exit(0)
+}
