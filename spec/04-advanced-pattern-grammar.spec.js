@@ -58,7 +58,7 @@ describe("advanced pattern grammar test:", function() {
       verbal: {
         INF: '->-',
         ATTR: ['-NK>-r(N)K', '-N>-r(N)'],
-        IPFV: ['-K>-K', '-N>-Nn'],
+        IPFV: ['-K>-K', '-l>-ln'],
         INT: ['-NK>-l(N)K', '-N>-l(N)'],
         CNJ: '>-gim'
       }
@@ -73,7 +73,8 @@ describe("advanced pattern grammar test:", function() {
       'want': { verbal: 'mis'},
       'beautiful': { verbal: 'laen' },
       'tell': { verbal: 'fe' },
-      'good': { verbal: 'slan' }
+      'good': { verbal: 'slan' },
+      'CAU' : { verbal: 'ra', irregular: { IPFV: 'ran' } }
     }
   })
 
@@ -86,15 +87,15 @@ describe("advanced pattern grammar test:", function() {
   })
   
   it("imperfecive", function() {
-    expect(parser('1s.NOM.SG woman.ABS.SG tell.IPFV')).toEqual('an rin fen')
+    expect(parser('1s.NOM.SG woman.ABS.SG tell.IPFV')).toEqual('an rin fe')
   })
   
   it("conjunction nominal, morphological rule", function() {
-    expect(parser('woman.ABS.PL.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fen')
+    expect(parser('woman.ABS.PL.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
   })
   
   xit("conjunction nominal, agglutination rule", function() {
-    expect(parser('woman.ABS.PL-CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fen')
+    expect(parser('woman.ABS.PL-CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
   })
   
   it("match terminal and non-terminal '-Nn>-l(N)nd'", function() {
@@ -115,6 +116,10 @@ describe("advanced pattern grammar test:", function() {
   
   it("match terminal and non-terminal '-NCC>-l(N)C+f(N)C' for double consonnant", function() {
     expect(parser('forest.GEN.PL')).toEqual('loureth')
+  })
+  
+  it("match irregular then regular rules", function() {
+    expect(parser('good-CAU.IPFV.ATTR')).toEqual('slanrein')
   })
   
   //good.MOD.CAU.IPFV.POS 
