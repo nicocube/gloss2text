@@ -46,19 +46,29 @@ try {
       var parser = parser_builder(parse(fs.readFileSync(cli.input[0], 'utf8')))
         , text = fs.readFileSync(cli.input[1], 'utf8')
         , lines = text.split('\n')
+        , x = undefined
 
       lines.forEach(function(l) {
         if (/^\s*$/.test(l) || l.startsWith('>')) {
           process.stdout.write(l+'\n')
+        } else if (l.startsWith('#')) {
+          x = l.replace(/^#\s*/,'')
         } else {
-          process.stdout.write(chalk.cyan(parser(l))+'\n')
+          var p = parser(l)
+          if (typeof x !== 'undefined' && p !== x) {
+            process.stdout.write(chalk.red('Expect: '+x)+'\n')
+            process.stdout.write(chalk.red('Actual: '+p)+'\n')
+            x = undefined
+          } else {
+            process.stdout.write(chalk.cyan(p)+'\n')
+          }
           if (cli.flags.i) process.stdout.write(chalk.yellow(l)+'\n')
         }
       })
     }
   }
 
-/*
+//*
 } catch(e) {
   process.stderr.write(chalk.magenta('ERROR:'+e.message+'\n'))
   process.exit(1)
