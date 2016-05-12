@@ -58,11 +58,11 @@ try {
           if (typeof x !== 'undefined' && p !== x) {
             process.stdout.write(chalk.red('Expect: '+x)+'\n')
             process.stdout.write(chalk.red('Actual: '+p)+'\n')
-            x = undefined
           } else {
             process.stdout.write(chalk.cyan(p)+'\n')
           }
           if (cli.flags.i) process.stdout.write(chalk.yellow(l)+'\n')
+          x = undefined
         }
       })
     }
