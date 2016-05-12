@@ -53,7 +53,10 @@ describe("advanced pattern grammar test:", function() {
           SG: ['-CC>-CiCe', '-C>-CCe', '-N>-Nme'],
           PL: ['-NC>-l(N)CCe', '-NCC>-l(N)CoCe', '-N>-l(N)me']
         },
-        CNJ: ['-K>-Kith', '-N>-Ngith']
+        POST: {
+          CNJ: ['-K>-Kith', '-N>-Ngith'],
+          TRA: ['-Nr>-Nrsh', '-Nn>-Nnsh', '-K>-Kesh', '-N>-Nsh']
+        }
       },
       verbal: {
         INF: '->-',
@@ -94,11 +97,11 @@ describe("advanced pattern grammar test:", function() {
   })
   
   it("conjunction nominal, morphological rule", function() {
-    expect(parser('woman.ABS.PL.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
+    expect(parser('woman.ABS.PL.POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
   })
   
   xit("conjunction nominal, agglutination rule", function() {
-    expect(parser('woman.ABS.PL-CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
+    expect(parser('woman.ABS.PL-POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
   })
   
   it("match terminal and non-terminal '-Nn>-l(N)nd'", function() {
@@ -131,5 +134,9 @@ describe("advanced pattern grammar test:", function() {
   
   it("compound word with transforming rule", function() {
     expect(parser('toilet.ABS.PL')).toEqual('lartheod')
+  })
+  
+  it("compound word with advanced transforming rule", function() {
+    expect(parser('toilet.ABS.PL.POST.TRA')).toEqual('lartheodesh')
   })
 })
