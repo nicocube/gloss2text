@@ -74,7 +74,10 @@ describe("advanced pattern grammar test:", function() {
       'beautiful': { verbal: 'laen' },
       'tell': { verbal: 'fe' },
       'good': { verbal: 'slan' },
-      'CAU' : { verbal: 'ra', irregular: { IPFV: 'ran' } }
+      'CAU': { verbal: 'ra', irregular: { IPFV: 'ran' } },
+      'clean': { verbal: 'lar' },
+      'room': { nominal: 'thed' },
+      'toilet': { compound: 'clean-room' }
     }
   })
 
@@ -122,7 +125,11 @@ describe("advanced pattern grammar test:", function() {
     expect(parser('good-CAU.IPFV.ATTR')).toEqual('slanrein')
   })
   
-  //good.MOD.CAU.IPFV.POS 
+  it("compound word with stable rule", function() {
+    expect(parser('toilet.ABS.SG')).toEqual('larthed')
+  })
   
-  //good.MOD.CAU.PFV.POS
+  it("compound word with transforming rule", function() {
+    expect(parser('toilet.ABS.PL')).toEqual('lartheod')
+  })
 })
