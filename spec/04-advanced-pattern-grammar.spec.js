@@ -80,7 +80,10 @@ describe("advanced pattern grammar test:", function() {
       'CAU': { verbal: 'ra', irregular: { IPFV: 'ran' } },
       'clean': { verbal: 'lar' },
       'room': { nominal: 'thed' },
-      'toilet': { compound: 'clean-room' }
+      'toilet': { compound: 'clean-room' },
+      'one': { verbal: 'ish' },
+      'two': { verbal: 'then' },
+      'ten': { verbal: [ 'farl', 'farli-', '-arl', '-arli-' ] }
     }
   })
 
@@ -139,4 +142,28 @@ describe("advanced pattern grammar test:", function() {
   it("compound word with advanced transforming rule", function() {
     expect(parser('toilet.ABS.PL.POST.TRA')).toEqual('lartheodesh')
   })
+  
+  it("multiple, contextual forms : no combine", function() {
+    expect(parser('ten')).toEqual('farl')
+  })
+  
+  it("multiple, contextual forms : combine after first case", function() {
+    expect(parser('ten-one')).toEqual('farlish')
+  })
+  
+  it("multiple, contextual forms : combine after second case", function() {
+    expect(parser('ten-two')).toEqual('farlithen')
+  })
+  
+  it("multiple, contextual forms : combine before", function() {
+    expect(parser('two-ten')).toEqual('thenarl')
+  })
+  it("multiple, contextual forms : combine before and after first case", function() {
+    expect(parser('two-ten-one')).toEqual('thenarlish')
+  })
+  
+  it("multiple, contextual forms : combine before and after second case", function() {
+    expect(parser('two-ten-two')).toEqual('thenarlithen')
+  })
+  
 })
