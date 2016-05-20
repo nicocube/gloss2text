@@ -57,8 +57,8 @@ describe("minimal language test:", function() {
       'love' : { verb: 'love'},
       'and' : { invariant: 'and' }
     }})
-      , actual = parser('1s.SBJ love 3fs.OBJ and 3fs.SBJ love.3s 1s.OBJ')
-      , expected = 'I love her and she loves me'
+      , actual = parser('1s.SBJ love 3fs.OBJ and 3fs.SBJ love.3s 1s.OBJ.')
+      , expected = 'I love her and she loves me.'
     expect(actual).toEqual(expected)
   })
   

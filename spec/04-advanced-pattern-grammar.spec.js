@@ -81,9 +81,19 @@ describe("advanced pattern grammar test:", function() {
       'clean': { verbal: 'lar' },
       'room': { nominal: 'thed' },
       'toilet': { compound: 'clean-room' },
+      'supertoilet': { compound: 'clean-toilet' },
+      'circular_test01': { compound: 'clean-circular_test02' },
+      'circular_test02': { compound: 'circular_test01-toilet' },
+      'circular_test11': { compound: 'clean-circular_test12' },
+      'circular_test12': { compound: 'circular_test13-toilet' },
+      'circular_test13': { compound: 'circular_test14-room' },
+      'circular_test14': { compound: 'circular_test12-toilet' },
       'one': { verbal: 'ish' },
       'two': { verbal: 'then' },
-      'ten': { verbal: [ 'farl', 'farli-', '-arl', '-arli-' ] }
+      'ten': {
+        verbal: 'farl',
+        compose: [ 'farli+C', 'C+arli+C', 'C+arl' ]
+      }
     }
   })
 
@@ -95,7 +105,7 @@ describe("advanced pattern grammar test:", function() {
     expect(parser('beautiful.IPFV.ATTR woman.NOM.SG forest.GEN.SG love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
   })
   
-  it("imperfecive", function() {
+  it("imperfective", function() {
     expect(parser('1s.NOM.SG woman.ABS.SG tell.IPFV')).toEqual('an rin fe')
   })
   
@@ -141,6 +151,22 @@ describe("advanced pattern grammar test:", function() {
   
   it("compound word with advanced transforming rule", function() {
     expect(parser('toilet.ABS.PL.POST.TRA')).toEqual('lartheodesh')
+  })
+  
+  it("compound of compound word", function() {
+    expect(parser('supertoilet.ABS.PL')).toEqual('larlartheod')
+  })
+  
+  it("compound word should not go circular shallowly", function() {
+    expect(function() { 
+      parser('circular_test01.ABS.PL')
+    }).toThrow()
+  })
+  
+  it("compound word should not go circular deeply", function() {
+    expect(function() { 
+      parser('circular_test11.ABS.PL')
+    }).toThrow()
   })
   
   it("multiple, contextual forms : no combine", function() {

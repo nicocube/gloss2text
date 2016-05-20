@@ -42,9 +42,9 @@ describe("test lexer", function() {
         {gloss:'IPFV'},
         {inter:'.'},
         {gloss:'INT'},
-        {blank: '?'},
+        {blank: '.'},
       ]
-      , actual = lexer.lexAll('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT?')
+      , actual = lexer.lexAll('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT.')
     expect(actual).toEqual(expected)
   })
   
@@ -82,13 +82,13 @@ describe("test lexer", function() {
           {inter:'.'},
           {gloss:'INT'},
         ],
-        {blank: '?'}
+        {blank: '.'}
       ]
       , actual = [
         lexer.lex('1s.GEN beautif'),
         lexer.lex('ul.IPFV.ATTR'),
         lexer.lex(' forest.A'),
-        lexer.lex('BS 2s.NOM love.IPFV.INT?'),
+        lexer.lex('BS 2s.NOM love.IPFV.INT.'),
         lexer.flush()
       ]
     expect(actual).toEqual(expected)
