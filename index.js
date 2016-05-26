@@ -8,11 +8,16 @@ try {
   // temporary test of meow
   var cli = meow(
     '\n  Usages\n'+
-    '    $ gloss2text\n'+
-    '    $ gloss2text <grammarfile>\n\n'+
-    '      REPL mode, any gloss typed on the command-line is parsed.\n'+
-    '      /h or /help for inline help about available commands\n\n'+
-    '    $ gloss2text <grammarfile> <glossfile>\n\n'+
+    '    $ gloss2text\n\n'+
+    '      This documentation.\n'+
+    '\n'+
+    '    $ gloss2text <grammarfile>\n'+
+    '\n'+
+    '      Options\n'+
+    '        -c, --count\tcount lexicon entries\n'+
+    '\n'+
+    '    $ gloss2text <grammarfile> <glossfile>\n'+
+    '\n'+
     '      Options\n'+
     '        -o, --out\tfile to send output to (otherwise goes to command-line)\n'+
     '        -i, --interlinear\toutput both result text on one line and original gloss under\n'+
@@ -23,7 +28,9 @@ try {
     {
       alias: {
         o: 'output',
-        i: 'interlinear'
+        i: 'interlinear',
+        c: 'count',
+        
       }
     }
   )
@@ -31,9 +38,6 @@ try {
   if (cli.input.length==0 && Object.keys(cli.flags).length==0) {
     cli.showHelp()
   } else {
-    //TODO
-    if (cli.input.length!==2 && Object.keys(cli.flags).length > 0) throw Error('Cannot have options in REPL mode.')
-
     //console.log(cli.input)
     //console.log(cli.flags)
 
@@ -42,7 +46,12 @@ try {
       , yaml = require('js-yaml')
       , parse = /yml$/.test(cli.input[0]) ? yaml.safeLoad : JSON.parse
 
-    if (cli.input.length==2) {
+    if (cli.input.length==1) {
+      var grammar_analyser = require(__dirname+'/lib/grammar_analyser.js')(parse(fs.readFileSync(cli.input[0], 'utf8')))
+      if (cli.flags.c) {
+        console.log('lexicon entries: '+grammar_analyser.count())
+      }
+    } else if (cli.input.length==2) {
       var parser = parser_builder(parse(fs.readFileSync(cli.input[0], 'utf8')))
         , text = fs.readFileSync(cli.input[1], 'utf8')
         , lines = text.split('\n')
