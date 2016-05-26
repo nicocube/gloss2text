@@ -49,7 +49,7 @@ try {
     if (cli.input.length==1) {
       var grammar_analyser = require(__dirname+'/lib/grammar_analyser.js')(parse(fs.readFileSync(cli.input[0], 'utf8')))
       if (cli.flags.c) {
-        console.log('lexicon entries: '+grammar_analyser.count())
+        console.log('lexicon entries: '+grammar_analyser.count_lexicon_entries())
       }
     } else if (cli.input.length==2) {
       var parser = parser_builder(parse(fs.readFileSync(cli.input[0], 'utf8')))
