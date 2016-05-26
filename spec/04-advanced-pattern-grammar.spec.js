@@ -92,7 +92,17 @@ describe("advanced pattern grammar test:", function() {
       'two': { verbal: 'then' },
       'ten': {
         verbal: 'farl',
-        compose: [ 'farli+C', 'C+arli+C', 'C+arl' ]
+        compose: [ 'farli+C', 'C+arli+C', 'C+arl' ],
+        exception: {
+          'one-ten' : '=ten'
+        }
+      },
+      'hundred': {
+        verbal: 'shimroth',
+        compose: [ 'C+emroth', 'V+mroth' ],
+        exception: {
+          'one-hundred': '=hundred'
+        }
       }
     }
   })
@@ -192,4 +202,31 @@ describe("advanced pattern grammar test:", function() {
     expect(parser('two-ten-two')).toEqual('thenarlithen')
   })
   
+  it("multiple, contextual forms, with exceptions : default", function() {
+    expect(parser('hundred')).toEqual('shimroth')
+  })
+  
+  xit("multiple, contextual forms, with exceptions : exception to default", function() {
+    expect(parser('one-hundred')).toEqual('shimroth')
+  })
+  
+  it("multiple, contextual forms, with exceptions : combine two composables", function() {
+    expect(parser('ten-hundred')).toEqual('farlimroth')
+  })
+  
+  xit("multiple, contextual forms, with exceptions : combine two composables", function() {
+    expect(parser('one-ten-hundred')).toEqual('farlimroth')
+  })
+  
+  it("multiple, contextual forms, with exceptions : combine two composables with one normal in between", function() {
+    expect(parser('ten-one-hundred')).toEqual('farlishemroth')
+  })
+  
+  it("multiple, contextual forms, with exceptions : combine two composables with another normal in between", function() {
+    expect(parser('ten-two-hundred')).toEqual('farlithenemroth')
+  })
+  
+  it("multiple, contextual forms, with exceptions : combine two composables", function() {
+    expect(parser('two-ten-hundred')).toEqual('thenarlimroth')
+  })
 })
