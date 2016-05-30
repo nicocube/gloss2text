@@ -92,17 +92,41 @@ describe("advanced pattern grammar test:", function() {
       'two': { verbal: 'then' },
       'ten': {
         verbal: 'farl',
-        compose: [ 'farli+C', 'C+arli+C', 'C+arl' ],
+        compose: [ 'farli-C', 'C-arli-C', 'C-arl' ],
         exception: {
           'one-ten' : '=ten'
         }
       },
       'hundred': {
         verbal: 'shimroth',
-        compose: [ 'C+emroth', 'V+mroth' ],
+        compose: [ 'C-emroth', 'V-mroth' ],
         exception: {
           'one-hundred': '=hundred'
         }
+      },
+      day: {
+        nominal: "thil"
+      },
+      now: {
+        nominal: "sur",
+        compose: [ "C-ur" ]
+      },
+      today: {
+        compound: "now-day"
+      },
+      tomorrow: {
+        compound: "after-now-day"
+      },
+      yesterday: {
+        compound: "before-now-day"
+      },
+      after: {
+        nominal: "das",
+        compose: [ "C-as" ]
+      },
+      before: {
+        nominal: "nov",
+        compose: [ "C-ov" ]
       }
     }
   })
@@ -229,4 +253,9 @@ describe("advanced pattern grammar test:", function() {
   it("multiple, contextual forms, with exceptions : combine two composables", function() {
     expect(parser('two-ten-hundred')).toEqual('thenarlimroth')
   })
+  
+  it("multiple, contextual forms, with exceptions : medial cases", function() {
+    expect(parser('tomorrow yesterday')).toEqual('dasurthil novurthil')
+  })
+  
 })
