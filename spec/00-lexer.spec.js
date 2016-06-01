@@ -19,32 +19,38 @@ describe("test lexer", function() {
   
   it("lexAll a string", function() {
     var expected = [
-        {gloss:'1s'},
+        {stem:'1s'},
         {inter:'.'},
-        {gloss:'GEN'},
+        {abbr:'GEN'},
         {blank: ' '},
-        {gloss:'beautiful'},
+        {stem:'beautiful'},
         {inter:'.'},
-        {gloss:'IPFV'},
+        {abbr:'IPFV'},
         {inter:'.'},
-        {gloss:'ATTR'},
+        {abbr:'ATTR'},
         {blank: ' '},
-        {gloss:'forest'},
+        {stem:'forest'},
         {inter:'.'},
-        {gloss:'ABS'},
+        {abbr:'ABS'},
         {blank: ' '},
-        {gloss:'2s'},
+        {stem:'2s'},
         {inter:'.'},
-        {gloss:'NOM'},
+        {abbr:'NOM'},
         {blank: ' '},
-        {gloss:'love'},
+        {stem:'love'},
         {inter:'.'},
-        {gloss:'IPFV'},
+        {abbr:'IPFV'},
         {inter:'.'},
-        {gloss:'INT'},
-        {blank: '.'},
+        {abbr:'INT'},
+        {blank: '. '},
+        {abbr:'PRE'},
+        {inter: '.'},
+        {stem:'yolo'},
+        {inter: '.'},
+        {abbr:'POST'},
+        {blank: '?'},
       ]
-      , actual = lexer.lexAll('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT.')
+      , actual = lexer.lexAll('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT. PRE.yolo.POST?')
     expect(actual).toEqual(expected)
   })
   
@@ -52,35 +58,35 @@ describe("test lexer", function() {
   it("lex many strings", function() {
     var expected = [
         [
-          {gloss:'1s'},
+          {stem:'1s'},
           {inter:'.'},
-          {gloss:'GEN'},
+          {abbr:'GEN'},
           {blank: ' '}
         ],
         [
-          {gloss:'beautiful'},
+          {stem:'beautiful'},
           {inter:'.'},
-          {gloss:'IPFV'},
+          {abbr:'IPFV'},
           {inter:'.'}
         ],
         [
-          {gloss:'ATTR'},
+          {abbr:'ATTR'},
           {blank: ' '},
-          {gloss:'forest'},
+          {stem:'forest'},
           {inter:'.'}
         ],
         [
-          {gloss:'ABS'},
+          {abbr:'ABS'},
           {blank: ' '},
-          {gloss:'2s'},
+          {stem:'2s'},
           {inter:'.'},
-          {gloss:'NOM'},
+          {abbr:'NOM'},
           {blank: ' '},
-          {gloss:'love'},
+          {stem:'love'},
           {inter:'.'},
-          {gloss:'IPFV'},
+          {abbr:'IPFV'},
           {inter:'.'},
-          {gloss:'INT'},
+          {abbr:'INT'},
         ],
         {blank: '.'}
       ]
