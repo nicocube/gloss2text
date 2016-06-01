@@ -26,10 +26,10 @@ describe("advanced pattern grammar test:", function() {
     syllable: ['N', 'ON', 'NK', 'ONK'],
     transformations: {
       r: {
-        a: 'ei', e: 'ia', i: 'ae', o: 'ue', u: 'iu', ae: 'eia'
+        a: 'ei', e: 'ie', i: 'ae', o: 'ue', u: 'iu', ae: 'eia'
       },
       l: {
-        a: 'au', e: 'eo', i: 'ie', o: 'ou', u: 'uo', ae: 'aio'
+        a: 'au', e: 'eo', i: 'ia', o: 'ou', u: 'uo', ae: 'aio'
       },
       f: {
         a: 'e', e: 'i', i: 'i', o: 'e', u: 'i'
@@ -38,7 +38,7 @@ describe("advanced pattern grammar test:", function() {
     rules: {      
       nominal: {
         ABS: {
-          SG: '->-',
+          SG: '-',
           PL: ['-NK>-l(N)K', '-N>-l(N)']
         },
         NOM: {
@@ -59,12 +59,15 @@ describe("advanced pattern grammar test:", function() {
         }
       },
       verbal: {
-        INF: '->-',
+        INF: '-',
         ATTR: ['-NK>-r(N)K', '-N>-r(N)'],
         IPFV: ['-K>-K', '-l>-ln'],
         INT: ['-NK>-l(N)K', '-N>-l(N)'],
-        CNJ: '>-gim'
+        CNJ: '-gim'
       }
+    },
+    affixes: {
+      
     },
     lexicon: {
       '1s': { nominal: 'a'},
@@ -132,7 +135,7 @@ describe("advanced pattern grammar test:", function() {
   })
 
   it("intra syllabic 1", function() {
-    expect(parser('1s.GEN.SG beautiful.IPFV.ATTR forest.ABS 2s.NOM.SG love.IPFV.INT')).toEqual('ei leian lorth ern muon')
+    expect(parser('1s.GEN.SG beautiful.IPFV.ATTR forest.ABS.SG 2s.NOM.SG love.IPFV.INT')).toEqual('ei leian lorth ern muon')
   })
 
   it("intra syllabic 2", function() {
@@ -144,15 +147,15 @@ describe("advanced pattern grammar test:", function() {
   })
   
   it("conjunction nominal, morphological rule", function() {
-    expect(parser('woman.ABS.PL.POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
+    expect(parser('woman.ABS.PL.POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rianith an fe')
   })
   
   xit("conjunction nominal, agglutination rule", function() {
-    expect(parser('woman.ABS.PL-POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rienith an fe')
+    expect(parser('woman.ABS.PL-POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rianith an fe')
   })
   
   it("match terminal and non-terminal '-Nn>-l(N)nd'", function() {
-    expect(parser('woman.NOM.PL')).toEqual('riend')
+    expect(parser('woman.NOM.PL')).toEqual('riand')
   })
 
   it("match terminal and non-terminal '-NK>-l(N)Kon' for double consonnant", function() {

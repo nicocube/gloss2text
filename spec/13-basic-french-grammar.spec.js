@@ -18,7 +18,7 @@ describe("basic french grammar test:", function() {
   var parser = build_parser({
     rules: {
       'verb-1st-group': {
-        INF: '->-',
+        INF: '-',
         IND: { PRS : { '1s' : '-er>-e', '2s' : '-er>-es', '3s' : '-er>-e', '1p' : '-er>-ons', '2p' : '-er>-ez', '3p' : '-er>-ent',  }}
       }
     },
