@@ -1,5 +1,6 @@
 #TODO
-* rename rules as paradigm
+* add a syllable validation 
+* rename rules as paradigms
 * add affixes (between paradigm and lexicon)
 * permit paradigm change (through affixes or compound)
 * simplify transformation rules
@@ -8,3 +9,9 @@
 * work with YAML for advanced grammar exemples
 * have a language exemple with stem prefixed by abbr
 * write a basic documentation (basic in README)
+
+#DOING
+* add a unit test mode
+* add a watch mode (including change in itself)
+
+#DONE

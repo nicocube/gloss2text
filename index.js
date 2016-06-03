@@ -21,8 +21,10 @@ try {
     '    $ gloss2text <grammarfile> <glossfile>\n'+
     '\n'+
     '      Options\n'+
-    '        -o, --out\tfile to send output to (otherwise goes to command-line)\n'+
+    '        -t, --test\tunit test mode (check hint lines, print erronous, and display report)\n'+
+    '        -w, --watch\tdo not close after treating file and watch changes to reload (do not work with --out option)\n'+
     '        -i, --interlinear\toutput both result text on one line and original gloss under\n'+
+    '        -o, --out\tfile to send output to (otherwise goes to command-line)\n'+
     '\n'+
     '      Examples\n'+
     '        $ gloss grammar.json gloss.txt -i\n',
@@ -33,7 +35,9 @@ try {
         i: 'interlinear',
         c: 'count',
         d: 'duplicate',
-        S: 'stacktrace'
+        S: 'stacktrace',
+        t: 'test',
+        w: 'watch'
       }
     }
   )
