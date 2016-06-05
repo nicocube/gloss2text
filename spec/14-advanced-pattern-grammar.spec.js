@@ -35,7 +35,7 @@ describe("advanced pattern grammar test:", function() {
         a: 'e', e: 'i', i: 'i', o: 'e', u: 'i'
       }
     },
-    rules: {      
+    paradigms: {      
       nominal: {
         ABS: {
           SG: '-',

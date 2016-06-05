@@ -16,7 +16,7 @@ describe("basic english grammar test:", function() {
   var build_parser = require(__dirname+'/../lib/parser')
   
   var parser = build_parser({
-    rules: {
+    paradigms: {
       verb : { PRS : { '3s' : '-s' }, PRT : '-d', PP : '>-d' } // -d and >-d are both valid
     },
     lexicon: {

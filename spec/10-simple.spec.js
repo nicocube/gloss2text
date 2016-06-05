@@ -16,33 +16,33 @@ describe("minimal language test:", function() {
   var build_parser = require(__dirname+'/../lib/parser')
   
   it("empty string parse to empty string", function() {
-    var parser = build_parser({lexicon:{}})
+    var parser = build_parser({paradigms: {}, lexicon:{}})
     expect(parser('')).toEqual('')
   })
 
   it("fail on word with empty lexicon", function() {
     expect(function() { 
-      var parser = build_parser({lexicon:{}})
+      var parser = build_parser({paradigms: {}, lexicon:{}})
       parser('plop')
     }).toThrow()
   })
 
   it("fail on word not in lexicon", function() {
     expect(function() { 
-      var parser = build_parser({lexicon:{plip: {stuff: 'plip'}}})
+      var parser = build_parser({paradigms: {}, lexicon:{plip: {stuff: 'plip'}}})
       parser('plop')
     }).toThrow()
   })
   
   it("parse a single irregular morpheme", function() {
-    var parser = build_parser({lexicon: { '1s' : { irregular: { 'OBJ' : 'me' }}}})
+    var parser = build_parser({paradigms: {}, lexicon: { '1s' : { irregular: { 'OBJ' : 'me' }}}})
       , actual = parser('1s.OBJ')
       , expected = 'me'
     expect(actual).toEqual(expected)
   })
   
   it("parse a single regular morpheme", function() {
-    var parser = build_parser({ rules: { 'verb' : { '3s' : function(w) { return w+'s' } } },lexicon: { 'parse' : { verb: 'parse' }}})
+    var parser = build_parser({ paradigms: { 'verb' : { '3s' : function(w) { return w+'s' } } },lexicon: { 'parse' : { verb: 'parse' }}})
       , actual = parser('parse.3s')
       , expected = 'parses'
     expect(actual).toEqual(expected)
@@ -50,7 +50,7 @@ describe("minimal language test:", function() {
   
   it("parse a simple sentence", function() {
     var parser = build_parser({
-      rules : { 'verb' : { '3s' : function(w) { return w+'s' } } },
+      paradigms : { 'verb' : { '3s' : function(w) { return w+'s' } } },
       lexicon : {
       '1s' : { irregular: { 'SBJ' : 'I', 'OBJ' : 'me' }},
       '3fs' : { irregular: { 'SBJ' : 'she', 'OBJ' : 'her' }},

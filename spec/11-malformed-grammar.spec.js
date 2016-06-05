@@ -15,9 +15,21 @@ describe("malformed grammar test:", function() {
     
   var build_parser = require(__dirname+'/../lib/parser')
   
-  it("parse an empty gramar", function() {
+  it("parse an empty grammar", function() {
     expect(function() { 
       build_parser({})
+    }).toThrow()
+  })
+  
+  it("parse a gramar with lexicon and no paradigms", function() {
+    expect(function() { 
+      build_parser({lexicon: {}})
+    }).toThrow()
+  })
+  
+  it("parse a grammar with paradigms and no lexicon", function() {
+    expect(function() { 
+      build_parser({paradigms: {}})
     }).toThrow()
   })
   
