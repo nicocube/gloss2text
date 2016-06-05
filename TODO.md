@@ -14,6 +14,6 @@
 #DOING
 
 #DONE
-* accept _ as a default for paradigm
+* accept _ in paradigms to define the default rule to use when further derivations are possible
 * add a watch mode (including change in itself)
 * rename rules as paradigms
