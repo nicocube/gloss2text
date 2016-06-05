@@ -72,7 +72,7 @@ try {
         tool.register(__dirname+'/tool.js')
         fs.readdirSync(__dirname+'/lib')
         .filter(RegExp.prototype.test.bind(/\.js$/))
-        .forEach(function (s) { console.log(__dirname+'/lib/'+s); tool.register(__dirname+'/lib/'+s, true) })
+        .forEach(function (s) { tool.register(__dirname+'/lib/'+s, true) })
         tool.register(grammarFile)
         tool.register(textFile)
         

@@ -1,4 +1,5 @@
 #TODO
+* accept _ as noop for rules
 * add a unit test mode
 * add a syllable validation 
 * add affixes (between paradigm and lexicon)
@@ -11,7 +12,8 @@
 * write a basic documentation (basic in README)
 
 #DOING
-* add a watch mode (including change in itself)
 
 #DONE
+* accept _ as a default for paradigm
+* add a watch mode (including change in itself)
 * rename rules as paradigms

@@ -60,6 +60,10 @@ function set_for_reload(parse, grammarFile, textFile, isInterlinear, isPrintStac
 
 function print_for_reload() {
   parse_file(for_reload.parse, for_reload.grammarFile, for_reload.textFile, for_reload.isInterlinear)
+  prompt_for_reload()
+}
+
+function prompt_for_reload() {
   process.stdout.write(chalk.gray('\nWait for change on files. r to reload, q to quit\n'))
 }
 
@@ -67,8 +71,8 @@ function register(filename, isResetable){
   fs.watchFile(filename,
   { interval: 1000 },  
   function() {
+    process.stdout.write('\nUpdate found on '+filename+'\n')
     if (typeof filename === 'string' && isResetable) {
-      console.log(filename)
       dep.reset(filename)
     }
     try {
@@ -76,6 +80,7 @@ function register(filename, isResetable){
     } catch(e) {
       if (!for_reload.isPrintStackTrace) process.stderr.write(chalk.magenta('ERROR:'+e.message+'\n'))
       else process.stderr.write(chalk.magenta(e.stack+'\n'))
+      prompt_for_reload()
     }
   })
 }
