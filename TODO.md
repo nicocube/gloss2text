@@ -1,6 +1,5 @@
 #TODO
 * accept _ as noop for rules
-* add a unit test mode
 * add a syllable validation 
 * add affixes (between paradigm and lexicon)
 * permit paradigm change (through affixes or compound)
@@ -8,10 +7,11 @@
 * integrate transformation rules to composition
 * homogenize transformation rules and composition rules
 * work with YAML for advanced grammar tests
-* have a language example with stem prefixed by abbr
+* have an example language with stem prefixed by abbr
 * write a basic documentation (basic in README)
 
 #DOING
+* add a unit test mode
 
 #DONE
 * accept _ in paradigms to define the default rule to use when further derivations are possible
