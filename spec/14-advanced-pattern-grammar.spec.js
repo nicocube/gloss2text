@@ -38,19 +38,19 @@ describe("advanced pattern grammar test:", function() {
     paradigms: {      
       nominal: {
         ABS: {
-          SG: '-',
+          _: '-',
           PL: ['-NK>-l(N)K', '-N>-l(N)']
         },
         NOM: {
-          SG: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
+          _: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
           PL: ['-N>-l(N)n', '-Nn>-l(N)nd', '-Nr>-l(N)rn', '-Nl>-l(N)ln', '-NK>-l(N)Kon']
         },
         GEN: {
-          SG: ['-NK>-r(N)K', '-N>-r(N)'],
+          _: ['-NK>-r(N)K', '-N>-r(N)'],
           PL: ['-NC>-l(N)C-f(N)', '-NCC>-l(N)Cf(N)C', '-N>-l(N)rf(N)']
         },
         VOC: {
-          SG: ['-CC>-CiCe', '-C>-CCe', '-N>-Nme'],
+          _: ['-CC>-CiCe', '-C>-CCe', '-N>-Nme'],
           PL: ['-NC>-l(N)CCe', '-NCC>-l(N)CoCe', '-N>-l(N)me']
         },
         POST: {
@@ -135,23 +135,23 @@ describe("advanced pattern grammar test:", function() {
   })
 
   it("intra syllabic 1", function() {
-    expect(parser('1s.GEN.SG beautiful.IPFV.ATTR forest.ABS.SG 2s.NOM.SG love.IPFV.INT')).toEqual('ei leian lorth ern muon')
+    expect(parser('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT')).toEqual('ei leian lorth ern muon')
   })
 
   it("intra syllabic 2", function() {
-    expect(parser('beautiful.IPFV.ATTR woman.NOM.SG forest.GEN.SG love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
+    expect(parser('beautiful.IPFV.ATTR woman.NOM forest.GEN love.INF want.IPFV')).toEqual('leian rind luerth mun mis')
   })
   
   it("imperfective", function() {
-    expect(parser('1s.NOM.SG woman.ABS.SG tell.IPFV')).toEqual('an rin fe')
+    expect(parser('1s.NOM woman.ABS tell.IPFV')).toEqual('an rin fe')
   })
   
   it("conjunction nominal, morphological rule", function() {
-    expect(parser('woman.ABS.PL.POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rianith an fe')
+    expect(parser('woman.ABS.PL.POST.CNJ 1s.NOM tell.IPFV')).toEqual('rianith an fe')
   })
   
   xit("conjunction nominal, agglutination rule", function() {
-    expect(parser('woman.ABS.PL-POST.CNJ 1s.NOM.SG tell.IPFV')).toEqual('rianith an fe')
+    expect(parser('woman.ABS.PL-POST.CNJ 1s.NOM tell.IPFV')).toEqual('rianith an fe')
   })
   
   it("match terminal and non-terminal '-Nn>-l(N)nd'", function() {
@@ -163,7 +163,7 @@ describe("advanced pattern grammar test:", function() {
   })
 
   it("match terminal and non-terminal '-NK>-l(N)Kon' for double consonnant", function() {
-    expect(parser('forest.VOC.SG')).toEqual('lorithe')
+    expect(parser('forest.VOC')).toEqual('lorithe')
   })
   
   it("match terminal and non-terminal '-NCC>-l(N)CoCe' for double consonnant", function() {
@@ -179,7 +179,7 @@ describe("advanced pattern grammar test:", function() {
   })
   
   it("compound word with stable rule", function() {
-    expect(parser('toilet.ABS.SG')).toEqual('larthed')
+    expect(parser('toilet.ABS')).toEqual('larthed')
   })
   
   it("compound word with transforming rule", function() {
