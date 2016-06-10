@@ -66,9 +66,6 @@ describe("advanced pattern grammar test:", function() {
         CNJ: '-gim'
       }
     },
-    affixes: {
-      
-    },
     lexicon: {
       '1s': { nominal: 'a'},
       '2s': { nominal: 'er'},

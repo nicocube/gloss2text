@@ -1,0 +1,36 @@
+phonemes:
+  Vs: a e o
+  Vw: i u
+  V: <Vs> <Vw> y
+  Cv: p t c f th s sh
+  Cu: b d g v dh z j
+  Cr: m n l r h
+  C: <Cv> <Cu> <Cr>
+  O: _ C
+  K: C <Vw>
+  N: VC <Vs><Vw>
+  S: ON
+
+transformations:
+  r: { a: e, o: e, i: i, e: i, y: i, u: i}
+  m:
+    h: r
+  h:
+    h: c
+
+paradigms:
+  nominal:
+    ABS:
+      _: _
+      PL: -K>-h(K)uh
+
+affixes:
+  ATTR>NOMa:
+    nominal: -fa
+
+lexicon:
+  speak:
+    verbal: fas
+  moon:
+    nominal: aleh
+  

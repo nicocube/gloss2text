@@ -50,7 +50,8 @@ module.exports = function() {
           d: 'duplicate',
           S: 'stacktrace',
           t: 'test',
-          'watch': 'w'
+          w: 'watch',
+          v: 'verbose'
         }
       }
     )
@@ -64,6 +65,7 @@ module.exports = function() {
       cli.showHelp()
     } else {
       var fs = require('fs')
+        , path = require('path')
         , chalk = require('chalk')
         , yaml = require('js-yaml')
         , parse = /yml$/.test(cli.input[0]) ? yaml.safeLoad : JSON.parse
@@ -75,32 +77,51 @@ module.exports = function() {
         process.stdout.write('Duplicate lexicon entries:\n'+grammar_analyser.format(grammar_analyser.find_duplicate())+'\n')
       } else if (cli.input.length==2) {
         var grammarFile = cli.input[0]
-          , textFile = cli.input[1]
-        if (cli.flags.w) {
-          require('minus-watch').add([grammarFile, textFile])
+          , tf
+          , textFile = tf = cli.input[1]
+          , isDir = fs.statSync(textFile).isDirectory()
+        
+        if (isDir) {
+          textFile = fs.readdirSync(textFile)
+          .map(function(f) { return path.join(tf, f)})
+          .filter(function(f) { return ! fs.statSync(f).isDirectory()})
+          if (textFile.length === 0) throw new Error("No file found in "+tf)
+        } else {
+          textFile = [textFile]
         }
-        var parser = parser_builder(parse(fs.readFileSync(grammarFile, 'utf8')))
-          , text = fs.readFileSync(textFile, 'utf8')
-          , lines = text.split('\n')
-          , x = undefined
-          , isInterlinear = cli.flags.i
-
-        lines.forEach(function(l) {
-          if (/^\s*$/.test(l) || l.startsWith('>')) {
-            process.stdout.write(l+'\n')
-          } else if (l.startsWith('#')) {
-            x = l.replace(/^#\s*/,'')
-          } else {
-            var p = parser(l)
-            if (typeof x !== 'undefined' && p !== x) {
-              process.stdout.write(chalk.red('Expect: '+x)+'\n')
-              process.stdout.write(chalk.red('Actual: '+p)+'\n')
-            } else {
-              process.stdout.write(chalk.cyan(p)+'\n')
-            }
-            if (isInterlinear) process.stdout.write(chalk.yellow(l)+'\n')
-            x = undefined
+        
+        if (cli.flags.w) {
+          require('minus-watch').add([grammarFile, tf])
+          require('minus-watch').add(textFile)
+        }
+        
+        textFile.forEach(function(f) {
+          if (isDir) {
+            process.stdout.write(chalk.inverse('Running: '+f)+'\n')
           }
+          var parser = parser_builder(parse(fs.readFileSync(grammarFile, 'utf8')))
+            , text = fs.readFileSync(f, 'utf8')
+            , lines = text.split('\n')
+            , x = undefined
+            , isInterlinear = cli.flags.i
+
+          lines.forEach(function(l) {
+            if (/^\s*$/.test(l) || l.startsWith('>')) {
+              process.stdout.write(l+'\n')
+            } else if (l.startsWith('#')) {
+              x = l.replace(/^#\s*/,'')
+            } else {
+              var p = parser(l)
+              if (typeof x !== 'undefined' && p !== x) {
+                process.stdout.write(chalk.red('Expect: '+x)+'\n')
+                process.stdout.write(chalk.red('Actual: '+p)+'\n')
+              } else {
+                process.stdout.write(chalk.cyan(p)+'\n')
+              }
+              if (isInterlinear) process.stdout.write(chalk.yellow(l)+'\n')
+              x = undefined
+            }
+          })
         })
       }
     }
