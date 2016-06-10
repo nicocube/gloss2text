@@ -15,18 +15,19 @@ transformations:
   r: { a: e, o: e, i: i, e: i, y: i, u: i}
   m:
     h: r
+    r: rsh
   h:
     h: c
+    r: rr
 
 paradigms:
   nominal:
-    ABS:
-      _: _
-      PL: -K>-h(K)uh
+    MS: -K>-m(K)
+    ABS: _
+    GEN: -K>-m(K)ih
+    PL: -K>-h(K)uh
 
 affixes:
-  ATTR>NOMa:
-    nominal: -fa
 
 lexicon:
   speak:

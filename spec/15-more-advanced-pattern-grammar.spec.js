@@ -18,8 +18,25 @@ describe("more advanced pattern grammar test:", function() {
   
   var parser = build_parser(yaml.safeLoad(fs.readFileSync(__dirname+'/grammar_for_test.yml')))
   
+  it("no change rule", function() {
+    expect(parser('moon.ABS')).toEqual('aleh')
+  })
+    
   it("complex phonetic system tranformation", function() {
-    expect(parser('moon.ABS.PL')).toEqual('alecuh')
+    expect(parser('moon.MS')).toEqual('aler')
+    expect(parser('moon.MS.ABS')).toEqual('aler')
+    
+    expect(parser('moon.GEN')).toEqual('alerih')
+    expect(parser('moon.MS.GEN')).toEqual('alershih')
+    
+    expect(parser('moon.PL.ABS')).toEqual('alecuh')
+    expect(parser('moon.MS.PL.ABS')).toEqual('alerruh')
+    
+    expect(parser('moon.PL.GEN')).toEqual('alecurih')
+    expect(parser('moon.MS.PL.GEN')).toEqual('alerrurih')
   })
 
+  it("tranform via affix", function() {
+  })
+  
 })

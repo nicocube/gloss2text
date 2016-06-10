@@ -1,5 +1,4 @@
 #TODO
-* accept _ as noop for rules
 * add a syllable validation 
 * add affixes (between paradigm and lexicon)
 * permit paradigm change (through affixes or compound)
@@ -14,6 +13,7 @@
 * add a unit test mode
 
 #DONE
+* accept _ as noop for rules
 * accept _ in paradigms to define the default rule to use when further derivations are possible
 * add a watch mode (including change in itself)
 * rename rules as paradigms
