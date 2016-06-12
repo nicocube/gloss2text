@@ -13,5 +13,5 @@
 
 require('minus-watch')({
   run: __dirname+'/app',
-  msg: require('chalk').gray('\nWait for change on files. r to reload, q to quit\n')
+  msg: require('chalk').gray('\nWait for change on files. r to reload, q to quit')
 })
