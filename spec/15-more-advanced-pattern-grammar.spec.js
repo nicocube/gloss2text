@@ -23,20 +23,28 @@ describe("more advanced pattern grammar test:", function() {
   })
     
   it("complex phonetic system tranformation", function() {
-    expect(parser('moon.MS')).toEqual('aler')
-    expect(parser('moon.MS.ABS')).toEqual('aler')
-    
-    expect(parser('moon.GEN')).toEqual('alerih')
-    expect(parser('moon.MS.GEN')).toEqual('alershih')
-    
+    expect(parser('moon.GEN')).toEqual('alehih')
     expect(parser('moon.PL.ABS')).toEqual('alecuh')
-    expect(parser('moon.MS.PL.ABS')).toEqual('alerruh')
-    
-    expect(parser('moon.PL.GEN')).toEqual('alecurih')
-    expect(parser('moon.MS.PL.GEN')).toEqual('alerrurih')
+    expect(parser('moon.PL.GEN')).toEqual('alecuhih')
   })
 
-  it("tranform via affix", function() {
+  it("tranform via simple derivation", function() {
+    expect(parser('moon-MS')).toEqual('aler')
+    expect(parser('moon-MS.ABS')).toEqual('aler')
+    expect(parser('moon-MS.GEN')).toEqual('alerih')
+    expect(parser('moon-MS.PL.ABS')).toEqual('alerruh')
+    expect(parser('moon-MS.PL.GEN')).toEqual('alerruhih')
+  })
+
+  it("tranform via complex derivation", function() {
+    expect(function() { 
+      parser('moon-NMZa')
+    }).toThrowError('No matching derivation for "nominal.GEN>nominal, nominal.PL.GEN>nominal, verbal.ATTR>nominal" in "aleh"')
+    expect(function() { 
+      parser('moon.ABS-NMZa')
+    }).toThrowError('No matching derivation for "nominal.GEN>nominal, nominal.PL.GEN>nominal, verbal.ATTR>nominal" in "aleh.ABS"')
+    expect(parser('moon.GEN-NMZa')).toEqual('alehihfah')
+    expect(parser('moon.PL.GEN-NMZa')).toEqual('alecuhihfah')
   })
   
 })

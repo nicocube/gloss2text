@@ -2,8 +2,8 @@ phonemes:
   Vs: a e o
   Vw: i u
   V: <Vs> <Vw> y
-  Cv: p t c f th s sh
-  Cu: b d g v dh z j
+  Cu: p t c f th s sh
+  Cv: b d g v dh z j
   Cr: m n l r h
   C: <Cv> <Cu> <Cr>
   O: _ C
@@ -22,12 +22,16 @@ transformations:
 
 paradigms:
   nominal:
-    MS: -K>-m(K)
     ABS: _
-    GEN: -K>-m(K)ih
+    GEN: -ih
     PL: -K>-h(K)uh
 
-affixes:
+derivations:
+  MS:
+    nominal>nominal: -K>-m(K)
+
+  NMZa:
+    nominal.GEN>nominal, nominal.PL.GEN>nominal, verbal.ATTR>nominal: -fah
 
 lexicon:
   speak:

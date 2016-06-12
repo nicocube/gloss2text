@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "jasmine",
-    "autotest": "nodemon node_modules/jasmine/bin/jasmine.js",
+    "autotest": "nodemon -e js,yml node_modules/jasmine/bin/jasmine.js",
     "coverage": "istanbul cover jasmine",
     "lint": "eslint index.js lib/",
     "autolint": "nodemon -x eslint lib/*"

@@ -18,19 +18,19 @@ describe("malformed grammar test:", function() {
   it("parse an empty grammar", function() {
     expect(function() { 
       build_parser({})
-    }).toThrow()
+    }).toThrowError("Your grammar needs a lexicon section.")
   })
   
   it("parse a gramar with lexicon and no paradigms", function() {
     expect(function() { 
       build_parser({lexicon: {}})
-    }).toThrow()
+    }).toThrowError("Your grammar needs a paradigms section.")
   })
   
   it("parse a grammar with paradigms and no lexicon", function() {
     expect(function() { 
       build_parser({paradigms: {}})
-    }).toThrow()
+    }).toThrowError("Your grammar needs a lexicon section.")
   })
   
 })
