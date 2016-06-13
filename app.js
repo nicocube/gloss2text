@@ -104,22 +104,26 @@ module.exports = function() {
             , lines = text.split('\n')
             , x = undefined
             , isInterlinear = cli.flags.i
+            , isTest = cli.flags.t
+            , isTestFailed = false
 
           lines.forEach(function(l) {
-            if (/^\s*$/.test(l) || l.startsWith('>')) {
-              process.stdout.write(l+'\n')
-            } else if (l.startsWith('#')) {
+            if (l.startsWith('#')) {
               x = l.replace(/^#\s*/,'')
-            } else {
+              isTestFailed = false
+            } else if (! /^\s*$/.test(l) && ! l.startsWith('>')) {
               var p = parser(l)
               if (typeof x !== 'undefined' && p !== x) {
                 process.stdout.write(chalk.red('Expect: '+x)+'\n')
                 process.stdout.write(chalk.red('Actual: '+p)+'\n')
-              } else {
+                isTestFailed = true
+              } else if (!isTest) {
                 process.stdout.write(chalk.cyan(p)+'\n')
               }
-              if (isInterlinear) process.stdout.write(chalk.yellow(l)+'\n')
+              if ((!isTest || isTestFailed) && isInterlinear) process.stdout.write(chalk.yellow(l)+'\n')
               x = undefined
+            } else if (!isTest || isTestFailed) {
+              process.stdout.write(l+'\n')
             }
           })
         })

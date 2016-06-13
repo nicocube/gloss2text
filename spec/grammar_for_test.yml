@@ -24,7 +24,8 @@ paradigms:
   nominal:
     ABS: _
     GEN: -ih
-    PL: -K>-h(K)uh
+    PL:
+      _: -K>-h(K)uh
 
 derivations:
   MS:
