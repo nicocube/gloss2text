@@ -95,7 +95,13 @@ module.exports = function() {
           require('minus-watch').add(textFile)
         }
         
+        var totalTestCount = 0
+          , totalFailureCount = 0
+          , isTest = cli.flags.t  
+
         textFile.forEach(function(f) {
+          var testCount = 0
+            , failureCount = 0
           if (isDir) {
             process.stdout.write(chalk.inverse('Running: '+f)+'\n')
           }
@@ -104,19 +110,25 @@ module.exports = function() {
             , lines = text.split('\n')
             , x = undefined
             , isInterlinear = cli.flags.i
-            , isTest = cli.flags.t
             , isTestFailed = false
 
           lines.forEach(function(l) {
             if (l.startsWith('#')) {
               x = l.replace(/^#\s*/,'')
+              testCount+=1
               isTestFailed = false
             } else if (! /^\s*$/.test(l) && ! l.startsWith('>')) {
-              var p = parser(l)
+              try {
+                var p = parser(l)
+              } catch(e) {
+                if (! ('S' in cli.flags)) process.stderr.write(chalk.magenta('ERROR:'+e.message+'\n'))
+                else process.stderr.write(chalk.magenta(e.stack+'\n'))
+              }
               if (typeof x !== 'undefined' && p !== x) {
                 process.stdout.write(chalk.red('Expect: '+x)+'\n')
                 process.stdout.write(chalk.red('Actual: '+p)+'\n')
                 isTestFailed = true
+                failureCount += 1
               } else if (!isTest) {
                 process.stdout.write(chalk.cyan(p)+'\n')
               }
@@ -126,7 +138,25 @@ module.exports = function() {
               process.stdout.write(l+'\n')
             }
           })
+
+          if (isTest) {
+            if (failureCount == 0) {
+              process.stdout.write(chalk.bgGreen(testCount+' check'+(testCount>1?'s':'')+' passed!')+'\n')
+            } else {
+              process.stdout.write(chalk.bgRed(failureCount+'/'+testCount+' check'+(testCount>1?'s':'')+' failed!')+'\n')
+            }
+          }
+          totalTestCount += testCount
+          totalFailureCount += failureCount
         })
+        if (isTest) {
+          process.stdout.write('\n'+chalk.inverse('Total:\n'))
+          if (totalFailureCount == 0) {
+            process.stdout.write(chalk.bgGreen(totalTestCount+' check'+(totalTestCount>1?'s':'')+' passed!')+'\n')
+          } else {
+            process.stdout.write(chalk.bgRed(totalFailureCount+'/'+totalTestCount+' check'+(totalTestCount>1?'s':'')+' failed!')+'\n')
+          }
+        } 
       }
     }
 

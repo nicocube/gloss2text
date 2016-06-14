@@ -1,16 +1,19 @@
 #TODO
 * add a syllable validation 
-* permit paradigm change (through affixes or compound)
-* simplify transformation rules
-* integrate transformation rules to composition
-* homogenize transformation rules and composition rules
+* permit paradigm change for compound
+* simplify rules
+* integrate rules to composition
+* homogenize paradigms, derivations and compositions rules
 * have an example language with stem prefixed by abbr
 * write a basic documentation (basic in README)
 
 #DOING
 
 #DONE
+* in transformations use key _ as a catchall for not defined value, and value _ as identity (no change) 
+* report final count of matching and non-matching checks in test mode
 * work with YAML for advanced grammar tests
+* permit paradigm change through derivation
 * add a unit test mode
 * add suffix derivations ~~affixes~~ (between paradigm and lexicon)
 * accept _ as noop for rules

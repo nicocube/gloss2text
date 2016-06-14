@@ -47,4 +47,9 @@ describe("more advanced pattern grammar test:", function() {
     expect(parser('moon.PL.GEN-NMZa')).toEqual('alecuhihfah')
   })
   
+  it("default tranformation", function() {
+    expect(parser('not_a_real_verb')).toEqual('plop')
+    expect(parser('not_a_real_verb.PFV')).toEqual('plopil')
+    expect(parser('not_a_real_verb.OPTA.NEG')).toEqual('ploras')
+  })
 })

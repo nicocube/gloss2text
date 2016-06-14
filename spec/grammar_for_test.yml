@@ -13,12 +13,15 @@ phonemes:
 
 transformations:
   r: { a: e, o: e, i: i, e: i, y: i, u: i}
-  m:
-    h: r
-    r: rsh
   h:
     h: c
     r: rr
+  s:
+    h: r
+    r: rsh
+    _: _
+  p:
+    _: ''
 
 paradigms:
   nominal:
@@ -26,17 +29,36 @@ paradigms:
     GEN: -ih
     PL:
       _: -K>-h(K)uh
+  verbal:
+    IPFV:
+      _: -an
+      NEG: -K>-s(K)esh
+    PFV:
+      _: -K>-s(K)il
+      NEG: -K>-p(K)les
+    OPTA:
+      _: -lar
+      NEG: -K>-p(K)ras
+    SUBJ:
+      _: -K>-h(K)rim
+      NEG: -K>-p(K)mas
+    COND:
+      _: -K>-h(K)sis
+      NEG: -K>-h(K)shes
+    ATTR: -ih
 
 derivations:
   MS:
-    nominal>nominal: -K>-m(K)
+    nominal>nominal: -K>-s(K)
 
   NMZa:
     nominal.GEN>nominal, nominal.PL.GEN>nominal, verbal.ATTR>nominal: -fah
 
 lexicon:
-  speak:
-    verbal: fas
+  act:
+    verbal: hes
+  not_a_real_verb:
+    verbal: plop
   moon:
     nominal: aleh
   
