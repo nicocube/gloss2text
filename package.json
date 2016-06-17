@@ -35,6 +35,6 @@
     "chalk": "^1.1.1",
     "js-yaml": "^3.5.2",
     "meow": "^3.7.0",
-    "minus-watch": "0.0.0"
+    "minus-watch": "0.0.1"
   }
 }
