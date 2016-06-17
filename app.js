@@ -112,7 +112,7 @@ module.exports = function() {
             , isInterlinear = cli.flags.i
             , isTestFailed = false
 
-          lines.forEach(function(l) {
+          lines.forEach(function(l, i) {
             if (l.startsWith('#')) {
               x = l.replace(/^#\s*/,'')
               testCount+=1
@@ -121,8 +121,9 @@ module.exports = function() {
               try {
                 var p = parser(l)
               } catch(e) {
-                if (! ('S' in cli.flags)) process.stderr.write(chalk.magenta('ERROR:'+e.message+'\n'))
-                else process.stderr.write(chalk.magenta(e.stack+'\n'))
+                process.stdout.write(chalk.magenta('While processing file "'+f+'" line number '+(i+1)+': '+l+'\n'))
+                if (! ('S' in cli.flags)) process.stdout.write(chalk.magenta('ERROR:'+e.message+'\n'))
+                else process.stdout.write(chalk.magenta(e.stack+'\n'))
               }
               if (typeof x !== 'undefined' && p !== x) {
                 process.stdout.write(chalk.red('Expect: '+x)+'\n')
@@ -136,6 +137,7 @@ module.exports = function() {
               x = undefined
             } else if (!isTest || isTestFailed) {
               process.stdout.write(l+'\n')
+              isTestFailed = false
             }
           })
 
@@ -161,7 +163,7 @@ module.exports = function() {
     }
 
   } catch(e) {
-    if (! ('S' in cli.flags)) process.stderr.write(chalk.magenta('ERROR:'+e.message+'\n'))
-    else process.stderr.write(chalk.magenta(e.stack+'\n'))
+    if (! ('S' in cli.flags)) process.stdout.write(chalk.magenta('ERROR:'+e.message+'\n'))
+    else process.stdout.write(chalk.magenta(e.stack+'\n'))
   }
 }
