@@ -117,9 +117,6 @@ module.exports = function() {
               x = l.replace(/^#\s*/,'')
               testCount+=1
               isTestFailed = false
-              if (isDir && i === 0) {
-                process.stdout.write('\n')
-              }
             } else if (! /^\s*$/.test(l) && ! l.startsWith('>')) {
               try {
                 var p = parser(l)
@@ -132,13 +129,16 @@ module.exports = function() {
                 else process.stdout.write(chalk.magenta(e.stack+'\n'))
               }
               if (typeof x !== 'undefined' && p !== x) {
+                if (isDir && i === 1) {
+                  process.stdout.write('\n')
+                }
                 if (isTest) process.stdout.write('\n'+chalk.bgRed('Line: '+(i+1))+'\n')
                 process.stdout.write(chalk.red('Expect: '+x)+'\n')
                 process.stdout.write(chalk.red('Actual: '+p)+'\n')
                 isTestFailed = true
                 failureCount += 1
               } else if (!isTest) {
-                if (isDir && i === 0) {
+                if (isDir && (i === 0 || (typeof x !== 'undefined' && i === 1))) {
                   process.stdout.write('\n')
                 }
                 process.stdout.write(chalk.cyan(p)+'\n')
@@ -155,21 +155,25 @@ module.exports = function() {
           })
 
           if (isTest) {
-            if (failureCount == 0) {
+            if (testCount === 0) {
+              process.stdout.write(chalk.bgYellow(' '+ testCount+' check'+(testCount>1?'s':'')+' passed!')+'\n')
+            } else if (failureCount == 0) {
               process.stdout.write(chalk.bgGreen(' '+ testCount+' check'+(testCount>1?'s':'')+' passed!')+'\n')
             } else {
-              process.stdout.write(chalk.bgRed(' '+ failureCount+'/'+testCount+' check'+(testCount>1?'s':'')+' failed!')+'\n')
+              process.stdout.write('\n'+chalk.bgRed('> '+ failureCount+'/'+testCount+' check'+(testCount>1?'s':'')+' failed!')+'\n')
             }
           }
           totalTestCount += testCount
           totalFailureCount += failureCount
         })
         if (isTest) {
-          process.stdout.write('\n'+chalk.inverse('Total:\n'))
-          if (totalFailureCount == 0) {
+          process.stdout.write('\n'+chalk.inverse('Total:'))
+          if (totalTestCount === 0) {
+              process.stdout.write(chalk.bgYellow(' '+ totalTestCount+' check'+(totalTestCount>1?'s':'')+' passed!')+'\n')
+            } else if (totalFailureCount == 0) {
             process.stdout.write(chalk.bgGreen(' '+ totalTestCount+' check'+(totalTestCount>1?'s':'')+' passed!')+'\n')
           } else {
-            process.stdout.write(chalk.bgRed(' '+ totalFailureCount+'/'+totalTestCount+' check'+(totalTestCount>1?'s':'')+' failed!')+'\n')
+            process.stdout.write(chalk.bgRed('> '+ totalFailureCount+'/'+totalTestCount+' check'+(totalTestCount>1?'s':'')+' failed!')+'\n')
           }
         } 
       }
