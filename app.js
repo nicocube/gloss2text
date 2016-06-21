@@ -103,7 +103,7 @@ module.exports = function() {
           var testCount = 0
             , failureCount = 0
           if (isDir) {
-            process.stdout.write(chalk.inverse('Running: '+f)+'\n')
+            process.stdout.write(chalk.inverse('Running: '+f+':'))
           }
           var parser = parser_builder(parse(fs.readFileSync(grammarFile, 'utf8')))
             , text = fs.readFileSync(f, 'utf8')
@@ -117,25 +117,38 @@ module.exports = function() {
               x = l.replace(/^#\s*/,'')
               testCount+=1
               isTestFailed = false
+              if (isDir && i === 0) {
+                process.stdout.write('\n')
+              }
             } else if (! /^\s*$/.test(l) && ! l.startsWith('>')) {
               try {
                 var p = parser(l)
               } catch(e) {
+                if (isDir && i === 0) {
+                  process.stdout.write('\n')
+                }
                 process.stdout.write(chalk.magenta('While processing file "'+f+'" line number '+(i+1)+': '+l+'\n'))
                 if (! ('S' in cli.flags)) process.stdout.write(chalk.magenta('ERROR:'+e.message+'\n'))
                 else process.stdout.write(chalk.magenta(e.stack+'\n'))
               }
               if (typeof x !== 'undefined' && p !== x) {
+                if (isTest) process.stdout.write('\n'+chalk.bgRed('Line: '+(i+1))+'\n')
                 process.stdout.write(chalk.red('Expect: '+x)+'\n')
                 process.stdout.write(chalk.red('Actual: '+p)+'\n')
                 isTestFailed = true
                 failureCount += 1
               } else if (!isTest) {
+                if (isDir && i === 0) {
+                  process.stdout.write('\n')
+                }
                 process.stdout.write(chalk.cyan(p)+'\n')
               }
               if ((!isTest || isTestFailed) && isInterlinear) process.stdout.write(chalk.yellow(l)+'\n')
               x = undefined
             } else if (!isTest || isTestFailed) {
+              if (isDir && i === 0) {
+                process.stdout.write('\n')
+              }
               process.stdout.write(l+'\n')
               isTestFailed = false
             }
@@ -143,9 +156,9 @@ module.exports = function() {
 
           if (isTest) {
             if (failureCount == 0) {
-              process.stdout.write(chalk.bgGreen(testCount+' check'+(testCount>1?'s':'')+' passed!')+'\n')
+              process.stdout.write(chalk.bgGreen(' '+ testCount+' check'+(testCount>1?'s':'')+' passed!')+'\n')
             } else {
-              process.stdout.write(chalk.bgRed(failureCount+'/'+testCount+' check'+(testCount>1?'s':'')+' failed!')+'\n')
+              process.stdout.write(chalk.bgRed(' '+ failureCount+'/'+testCount+' check'+(testCount>1?'s':'')+' failed!')+'\n')
             }
           }
           totalTestCount += testCount
@@ -154,9 +167,9 @@ module.exports = function() {
         if (isTest) {
           process.stdout.write('\n'+chalk.inverse('Total:\n'))
           if (totalFailureCount == 0) {
-            process.stdout.write(chalk.bgGreen(totalTestCount+' check'+(totalTestCount>1?'s':'')+' passed!')+'\n')
+            process.stdout.write(chalk.bgGreen(' '+ totalTestCount+' check'+(totalTestCount>1?'s':'')+' passed!')+'\n')
           } else {
-            process.stdout.write(chalk.bgRed(totalFailureCount+'/'+totalTestCount+' check'+(totalTestCount>1?'s':'')+' failed!')+'\n')
+            process.stdout.write(chalk.bgRed(' '+ totalFailureCount+'/'+totalTestCount+' check'+(totalTestCount>1?'s':'')+' failed!')+'\n')
           }
         } 
       }
