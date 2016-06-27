@@ -47,6 +47,10 @@ paradigms:
       NEG: -K>-h(K)shes
     ATTR: -ih
 
+  special_verbal:
+    _extends: verbal
+      
+
 derivations:
   MS:
     nominal>nominal: -K>-s(K)
@@ -61,4 +65,6 @@ lexicon:
     verbal: plop
   moon:
     nominal: aleh
+  say:
+    special_verbal: fah
   

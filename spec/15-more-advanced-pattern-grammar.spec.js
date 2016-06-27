@@ -52,4 +52,8 @@ describe("more advanced pattern grammar test:", function() {
     expect(parser('not_a_real_verb.PFV')).toEqual('plopil')
     expect(parser('not_a_real_verb.OPTA.NEG')).toEqual('ploras')
   })
+  
+  it("paradigm extension", function() {
+    expect(parser('say.IPFV')).toEqual('fahan')
+  })
 })
