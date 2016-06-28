@@ -78,6 +78,7 @@ describe("advanced pattern grammar test:", function() {
       'tell': { verbal: 'fe' },
       'good': { verbal: 'slan' },
       'CAU': { verbal: 'ra', irregular: { IPFV: 'ran' } },
+      'ACT': { verbal: 'ma', irregular: { IPFV: { _:'man' } } },
       'clean': { verbal: 'lar' },
       'room': { nominal: 'thed' },
       'toilet': { compound: 'clean-room' },
@@ -173,6 +174,10 @@ describe("advanced pattern grammar test:", function() {
   
   it("match irregular then regular rules", function() {
     expect(parser('good-CAU.IPFV.ATTR')).toEqual('slanrein')
+  })
+  
+  it("match default irregular then regular rules", function() {
+    expect(parser('good-ACT.IPFV.ATTR')).toEqual('slanmein')
   })
   
   it("compound word with stable rule", function() {
