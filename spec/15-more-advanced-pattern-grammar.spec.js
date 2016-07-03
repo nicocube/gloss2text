@@ -54,6 +54,7 @@ describe("more advanced pattern grammar test:", function() {
   })
   
   it("paradigm extension", function() {
-    expect(parser('say.IPFV')).toEqual('fahan')
+    expect(parser('act.IPFV')).toEqual('hesan')
+    expect(parser('say.IPFV')).toEqual('fahun')
   })
 })

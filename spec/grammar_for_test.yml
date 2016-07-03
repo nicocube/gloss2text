@@ -49,6 +49,10 @@ paradigms:
 
   special_verbal:
     _extends: verbal
+    IPFV:
+      _: -un
+      NEG: -K>-s(K)osh
+    
       
 
 derivations:
