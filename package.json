@@ -1,6 +1,6 @@
 {
   "name": "gloss2text",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A tool to help language production from gloss notations.",
   "main": "index.js",
   "scripts": {
