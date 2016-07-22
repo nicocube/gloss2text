@@ -17,9 +17,15 @@ describe("basic french grammar test:", function() {
   
   var parser = build_parser({
     paradigms: {
-      'verb-1st-group': {
-        INF: '-',
-        IND: { PRS : { '1s' : '-er>-e', '2s' : '-er>-es', '3s' : '-er>-e', '1p' : '-er>-ons', '2p' : '-er>-ez', '3p' : '-er>-ent',  }}
+      'verb': {
+        '-er': {
+          INF: '_',
+          IND: { PRS : { '1s' : '-er>-e', '2s' : '-er>-es', '3s' : '-er>-e', '1p' : '-er>-ons', '2p' : '-er>-ez', '3p' : '-er>-ent',  }}
+        },
+        '-ir': {
+          INF: '_',
+          IND: { PRS : { '1s' : '-ir>-is', '2s' : '-ir>-is', '3s' : '-ir>-it', '1p' : '-ir>-issons', '2p' : '-ir>-issez', '3p' : '-ir>-issent',  }}
+        }
       }
     },
     lexicon: {
@@ -27,12 +33,17 @@ describe("basic french grammar test:", function() {
       '2s' : { irregular: { 'SBJ' : 'tu', 'OBJ' : 'toi', 'CLI': 't\'' }},
       '3hs' : { irregular: { 'SBJ' : 'il', 'OBJ' : 'lui', 'CLI': 'l\'' }},
       '3fs' : { irregular: { 'SBJ' : 'elle', 'OBJ' : 'elle', 'CLI': 'l\'' }},
-      'love' : { 'verb-1st-group': 'aimer'},
+      'love' : { 'verb': 'aimer'},
+      'finish' : { 'verb': 'finir'},
       'and' : { invariant: 'et' }
   }})
 
-  it("present tense sentence", function() {
+  it("present tense sentence -er", function() {
     expect(parser('1s.SBJ 3fs.CLI-love.IND.PRS.1s and 3fs.SBJ 1s.CLI-love.IND.PRS.3s')).toEqual('je l\'aime et elle m\'aime')
+  })
+  
+  it("present tense sentence -ir", function() {
+    expect(parser('1s.SBJ finish.IND.PRS.1s.')).toEqual('je finis.')
   })
   
   it("infinitive sentence", function() {

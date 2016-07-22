@@ -17,7 +17,7 @@ describe("basic english grammar test:", function() {
   
   var parser = build_parser({
     paradigms: {
-      verb : { PRS : { '3s' : '-s' }, PRT : '-d', PP : '>-d' } // -d and >-d are both valid
+      verb : { '_': { PRS : { '3s' : '-s' }, PRT : '-d', PP : '>-d' } } // -d and >-d are both valid
     },
     lexicon: {
       '1s' : { irregular: { 'SBJ' : 'I', 'OBJ' : 'me' }},

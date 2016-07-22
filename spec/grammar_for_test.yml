@@ -30,28 +30,33 @@ paradigms:
     PL:
       _: -K>-h(K)uh
   verbal:
-    IPFV:
-      _: -an
-      NEG: -K>-s(K)esh
-    PFV:
-      _: -K>-s(K)il
-      NEG: -K>-p(K)les
-    OPTA:
-      _: -lar
-      NEG: -K>-p(K)ras
-    SUBJ:
-      _: -K>-h(K)rim
-      NEG: -K>-p(K)mas
-    COND:
-      _: -K>-h(K)sis
-      NEG: -K>-h(K)shes
-    ATTR: -ih
+    -N:
+      IPFV:
+        _: -an
+        NEG: -K>-s(K)esh
+      PFV:
+        _: -K>-s(K)il
+        NEG: -K>-p(K)les
+      OPTA:
+        _: -lar
+        NEG: -K>-p(K)ras
+      SUBJ:
+        _: -K>-h(K)rim
+        NEG: -K>-p(K)mas
+      COND:
+        _: -K>-h(K)sis
+        NEG: -K>-h(K)shes
+      ATTR: -ih
+    
+    -N, -N:
+      _extends: verbal(-N)
+      INF: -N[2]
 
-  special_verbal:
-    _extends: verbal
-    IPFV:
-      _: -un
-      NEG: -K>-s(K)osh
+    _:
+      _extends: verbal(-N)
+      IPFV:
+        _: -un
+        NEG: -K>-s(K)osh
     
       
 
@@ -70,5 +75,5 @@ lexicon:
   moon:
     nominal: aleh
   say:
-    special_verbal: fah
+    verbal: fah, fat
   

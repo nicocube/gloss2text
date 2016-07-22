@@ -42,7 +42,7 @@ describe("minimal language test:", function() {
   })
   
   it("parse a single regular morpheme", function() {
-    var parser = build_parser({ paradigms: { 'verb' : { '3s' : function(w) { return w+'s' } } },lexicon: { 'parse' : { verb: 'parse' }}})
+    var parser = build_parser({ paradigms: { verb : { _: { '3s' : function(w) { return w+'s' } } } },lexicon: { 'parse' : { verb: 'parse' }}})
       , actual = parser('parse.3s')
       , expected = 'parses'
     expect(actual).toEqual(expected)
@@ -50,7 +50,7 @@ describe("minimal language test:", function() {
   
   it("parse a simple sentence", function() {
     var parser = build_parser({
-      paradigms : { 'verb' : { '3s' : function(w) { return w+'s' } } },
+      paradigms : { 'verb' : { '_': { '3s' : function(w) { return w+'s' } } } },
       lexicon : {
       '1s' : { irregular: { 'SBJ' : 'I', 'OBJ' : 'me' }},
       '3fs' : { irregular: { 'SBJ' : 'she', 'OBJ' : 'her' }},

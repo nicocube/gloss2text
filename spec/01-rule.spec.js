@@ -79,10 +79,12 @@ describe("test transformation rule parsing:", function() {
     expect(rule.parse_string_rule('-Nn>-r(N)','an')).toEqual('e')
     expect(rule.parse_string_rule('-NK>-l(N)','in')).toEqual('ae')
     expect(rule.parse_string_rule('-NK>-l(N)K','ien')).toEqual('aien')
+    expect(rule.parse_string_rule('-NK>-l(N)-K','ien')).toEqual('aien')
     expect(rule.parse_string_rule('-NK>-Kl(N)','aen')).toEqual('neia')
     
     expect(rule.parse_string_rule('-NK>-r(N)h(K)','i')).toEqual('i')
     expect(rule.parse_string_rule('-NK>-r(N)h(K)','is')).toEqual('i')
+    expect(rule.parse_string_rule('-NK>-r(N)-h(K)','is')).toEqual('i')
     expect(rule.parse_string_rule('-NK>-r(N)h(K)','in')).toEqual('ind')
     
     expect(rule.parse_string_rule('-NK>-h(K)r(N)','ic')).toEqual('hi')

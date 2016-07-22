@@ -35,35 +35,39 @@ describe("advanced pattern grammar test:", function() {
         a: 'e', e: 'i', i: 'i', o: 'e', u: 'i'
       }
     },
-    paradigms: {      
+    paradigms: {  
       nominal: {
-        ABS: {
-          _: '-',
-          PL: ['-NK>-l(N)K', '-N>-l(N)']
-        },
-        NOM: {
-          _: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
-          PL: ['-N>-l(N)n', '-Nn>-l(N)nd', '-Nr>-l(N)rn', '-Nl>-l(N)ln', '-NK>-l(N)Kon']
-        },
-        GEN: {
-          _: ['-NK>-r(N)K', '-N>-r(N)'],
-          PL: ['-NC>-l(N)C-f(N)', '-NCC>-l(N)Cf(N)C', '-N>-l(N)rf(N)']
-        },
-        VOC: {
-          _: ['-CC>-CiCe', '-C>-CCe', '-N>-Nme'],
-          PL: ['-NC>-l(N)CCe', '-NCC>-l(N)CoCe', '-N>-l(N)me']
-        },
-        POST: {
-          CNJ: ['-K>-Kith', '-N>-Ngith'],
-          TRA: ['-Nr>-Nrsh', '-Nn>-Nnsh', '-K>-Kesh', '-N>-Nsh']
+        _: {
+          ABS: {
+            _: '-',
+            PL: ['-NK>-l(N)K', '-N>-l(N)']
+          },
+          NOM: {
+            _: ['-N>-Nn', '-n>-nd', '-r>-rn', '-l>-ln', '>-en'],
+            PL: ['-N>-l(N)n', '-Nn>-l(N)nd', '-Nr>-l(N)rn', '-Nl>-l(N)ln', '-NK>-l(N)Kon']
+          },
+          GEN: {
+            _: ['-NK>-r(N)K', '-N>-r(N)'],
+            PL: ['-NC>-l(N)C-f(N)', '-NCC>-l(N)Cf(N)C', '-N>-l(N)rf(N)']
+          },
+          VOC: {
+            _: ['-CC>-CiCe', '-C>-CCe', '-N>-Nme'],
+            PL: ['-NC>-l(N)CCe', '-NCC>-l(N)CoCe', '-N>-l(N)me']
+          },
+          POST: {
+            CNJ: ['-K>-Kith', '-N>-Ngith'],
+            TRA: ['-Nr>-Nrsh', '-Nn>-Nnsh', '-K>-Kesh', '-N>-Nsh']
+          }
         }
       },
       verbal: {
-        INF: '-',
-        ATTR: ['-NK>-r(N)K', '-N>-r(N)'],
-        IPFV: ['-K>-K', '-l>-ln'],
-        INT: ['-NK>-l(N)K', '-N>-l(N)'],
-        CNJ: '-gim'
+        _: {
+          INF: '-',
+          ATTR: ['-NK>-r(N)K', '-N>-r(N)'],
+          IPFV: ['-K>-K', '-l>-ln'],
+          INT: ['-NK>-l(N)K', '-N>-l(N)'],
+          CNJ: '-gim'
+        }
       }
     },
     lexicon: {
