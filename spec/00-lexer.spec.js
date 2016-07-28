@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2016 Nicolas Lochet Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy of the License at
@@ -19,35 +18,35 @@ describe("test lexer", function() {
   
   it("lexAll a string", function() {
     var expected = [
-        {stem:'1s'},
+        {gloss:'1s'},
         {inter:'.'},
-        {abbr:'GEN'},
+        {gloss:'GEN'},
         {blank: ' '},
-        {stem:'beautiful'},
+        {gloss:'beautiful'},
         {inter:'.'},
-        {abbr:'IPFV'},
+        {gloss:'IPFV'},
         {inter:'.'},
-        {abbr:'ATTR'},
+        {gloss:'ATTR'},
         {blank: ' '},
-        {stem:'forest'},
+        {gloss:'forest'},
         {inter:'.'},
-        {abbr:'ABS'},
+        {gloss:'ABS'},
         {blank: ' '},
-        {stem:'2s'},
+        {gloss:'2s'},
         {inter:'.'},
-        {abbr:'NOM'},
+        {gloss:'NOM'},
         {blank: ' '},
-        {stem:'love'},
+        {gloss:'love'},
         {inter:'.'},
-        {abbr:'IPFV'},
+        {gloss:'IPFV'},
         {inter:'.'},
-        {abbr:'INT'},
+        {gloss:'INT'},
         {blank: '. '},
-        {abbr:'PRE'},
+        {gloss:'PRE'},
         {inter: '.'},
-        {stem:'yolo'},
+        {gloss:'yolo'},
         {inter: '.'},
-        {abbr:'POST'},
+        {gloss:'POST'},
         {blank: '?'},
       ]
       , actual = lexer.lexAll('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT. PRE.yolo.POST?')
@@ -58,35 +57,35 @@ describe("test lexer", function() {
   it("lex many strings", function() {
     var expected = [
         [
-          {stem:'1s'},
+          {gloss:'1s'},
           {inter:'.'},
-          {abbr:'GEN'},
+          {gloss:'GEN'},
           {blank: ' '}
         ],
         [
-          {stem:'beautiful'},
+          {gloss:'beautiful'},
           {inter:'.'},
-          {abbr:'IPFV'},
+          {gloss:'IPFV'},
           {inter:'.'}
         ],
         [
-          {abbr:'ATTR'},
+          {gloss:'ATTR'},
           {blank: ' '},
-          {stem:'forest'},
+          {gloss:'forest'},
           {inter:'.'}
         ],
         [
-          {abbr:'ABS'},
+          {gloss:'ABS'},
           {blank: ' '},
-          {stem:'2s'},
+          {gloss:'2s'},
           {inter:'.'},
-          {abbr:'NOM'},
+          {gloss:'NOM'},
           {blank: ' '},
-          {stem:'love'},
+          {gloss:'love'},
           {inter:'.'},
-          {abbr:'IPFV'},
+          {gloss:'IPFV'},
           {inter:'.'},
-          {abbr:'INT'},
+          {gloss:'INT'},
         ],
         {blank: '.'}
       ]
