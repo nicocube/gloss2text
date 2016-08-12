@@ -11,11 +11,11 @@
 
 'use strict'
 
-describe('parse phonemes', function() {
+describe('Parse phonemes', function() {
 
   var GrammarPhonemes = require(__dirname+'/../lib/grammar-phonemes')
-    , Terminal = GrammarPhonemes.Terminal
-    , NonTerminal = GrammarPhonemes.NonTerminal
+    , Alt = GrammarPhonemes.Alt
+    , Seq = GrammarPhonemes.Seq
 
   it('Creation: should fail with improper params', function() {
     expect(function() { 
@@ -47,7 +47,7 @@ describe('parse phonemes', function() {
     }).toThrowError('phonemes should not be an empty object: {}')
   })
 
-  it('split Pattern into usable parts according to phonology definition', function() {
+  it('parse pattern into usable parts according to phonology definition', function() {
     var p = {
         V: 'a e o i u',
         Cu: 'p t c f th s sh',
@@ -61,17 +61,24 @@ describe('parse phonemes', function() {
       }
       , g = new GrammarPhonemes(p)
 
-    expect(g.parse('v')).toEqual([Terminal('v')])
-    expect(g.parse('V')).toEqual([NonTerminal('V',['a','e','o','i','u'])])
-    expect(g.parse('C')).toEqual([NonTerminal('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h'])])
+    expect(g.parse('v')).toEqual(Seq('v',['v']))
+    expect(g.parse('V')).toEqual(Seq('V',[Alt('V',['a','e','o','i','u'])]))
+    expect(g.parse('C')).toEqual(Seq('C',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h'])]))
     
-    expect(g.parse('Cr')).toEqual([NonTerminal('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),Terminal('r')])
-    expect(g.parse('<Cr>')).toEqual([NonTerminal('Cr',['m','n','l','r','h'])])
+    expect(g.parse('Cr')).toEqual(Seq('Cr',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'r']))
+    expect(g.parse('<Cr>')).toEqual(Seq('<Cr>',[Alt('Cr',['m','n','l','r','h'])]))
     
-    expect(g.parse('vV')).toEqual([Terminal('v'),NonTerminal('V',['a','e','o','i','u'])])
+    expect(g.parse('vV')).toEqual(Seq('vV',['v',Alt('V',['a','e','o','i','u'])]))
     
-    expect(g.parse('vVcCvcaCe')).toEqual([Terminal('v'),NonTerminal('V',['a','e','o','i','u']),Terminal('c'),NonTerminal('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),Terminal('vca'),NonTerminal('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),Terminal('e')])
+    expect(g.parse('vVcCvcaCe')).toEqual(Seq('vVcCvcaCe',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'e']))
     
-    expect(g.parse('plop<Cu>plouf')).toEqual([Terminal('plop'),NonTerminal('Cu',['p','t','c','f','th','s','sh']),Terminal('plouf')])
+    expect(g.parse('plop<Cu>plouf')).toEqual(Seq('plop<Cu>plouf',['plop',Alt('Cu',['p','t','c','f','th','s','sh']),'plouf']))
+    
+    expect(g.parse('N')).toEqual(Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]))
+  })
+  
+  it('build regex from parsed pattern', function() {
+    expect(Seq('v',['v']).buildRegex()).toEqual('v')
+    expect(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex()).toEqual('(a|e|o|i|u)')
   })
 })
