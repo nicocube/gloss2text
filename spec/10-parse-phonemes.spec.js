@@ -70,7 +70,7 @@ describe('Parse phonemes', function() {
     
     expect(g.parse('vV')).toEqual(Seq('vV',['v',Alt('V',['a','e','o','i','u'])]))
     
-    expect(g.parse('vVcCvcaCe')).toEqual(Seq('vVcCvcaCe',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'e']))
+    expect(g.parse('vVcCvca<Cu>e')).toEqual(Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']))
     
     expect(g.parse('plop<Cu>plouf')).toEqual(Seq('plop<Cu>plouf',['plop',Alt('Cu',['p','t','c','f','th','s','sh']),'plouf']))
     
@@ -79,6 +79,14 @@ describe('Parse phonemes', function() {
   
   it('build regex from parsed pattern', function() {
     expect(Seq('v',['v']).buildRegex()).toEqual('v')
+    
     expect(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex()).toEqual('(a|e|o|i|u)')
+    expect(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex(true)).toEqual('(?:a|e|o|i|u)')
+    
+    expect(Seq('Cr',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'r']).buildRegex()).toEqual('(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)r')
+    
+    expect(Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']).buildRegex()).toEqual('v(a|e|o|i|u)c(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)vca(p|t|c|f|th|s|sh)e')
+    
+    expect(Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]).buildRegex()).toEqual('(a|e|o|i|u|(?:a|e|o|i|u)(?:a|e|o|i|u))')
   })
 })

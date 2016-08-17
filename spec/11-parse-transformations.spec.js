@@ -11,7 +11,7 @@
 
 'use strict'
 
-xdescribe('parse transformations', function() {
+describe('parse transformations', function() {
   
   var GrammarTransformations = require(__dirname+'/../lib/grammar-transformations')
   
@@ -76,15 +76,19 @@ xdescribe('parse transformations', function() {
       expect(g.parseRule('-n>-d').apply('an')).toEqual('ad')
     })
     
-    it("phoneme class rules", function() {
+    it("match pattern replace with const", function() {
       expect(g.parseRule('-K>-n').apply('a')).toEqual('a')
       expect(g.parseRule('-K>-n').apply('ad')).toEqual('an')
       expect(g.parseRule('-K>-n').apply('as')).toEqual('an')
-      
+    })
+    
+    it("match pattern replace with capture simple", function() {
       expect(g.parseRule('-K>-KK').apply('a')).toEqual('a')
       expect(g.parseRule('-K>-KK').apply('an')).toEqual('ann')
       expect(g.parseRule('-NK>-KNK').apply('an')).toEqual('nan')
-      
+    })
+
+    it("match pattern replace with capture complex", function() {
       expect(g.parseRule('-CC>-CiCCe').apply('adr')).toEqual('adirre')
       
       expect(g.parseRule('-CC>-CCaCu').apply('adr')).toEqual('adraru')
@@ -101,13 +105,17 @@ xdescribe('parse transformations', function() {
       expect(g.parseRule('-N>-l(N)').apply('i')).toEqual('ae')
       expect(g.parseRule('-N>-l(N)').apply('ie')).toEqual('aie')
       expect(g.parseRule('-N>-l(N)').apply('ae')).toEqual('eia')
-      
+    })
+     
+    it("simple transformation rules + capture", function() { 
       expect(g.parseRule('-Nn>-r(N)').apply('an')).toEqual('e')
       expect(g.parseRule('-NK>-l(N)').apply('in')).toEqual('ae')
       expect(g.parseRule('-NK>-l(N)K').apply('ien')).toEqual('aien')
       expect(g.parseRule('-NK>-l(N)-K').apply('ien')).toEqual('aien')
       expect(g.parseRule('-NK>-Kl(N)').apply('aen')).toEqual('neia')
+    })
       
+    it("double transformation rules + capture", function() { 
       expect(g.parseRule('-NK>-r(N)h(K)').apply('i')).toEqual('i')
       expect(g.parseRule('-NK>-r(N)h(K)').apply('is')).toEqual('i')
       expect(g.parseRule('-NK>-r(N)-h(K)').apply('is')).toEqual('i')
@@ -116,7 +124,7 @@ xdescribe('parse transformations', function() {
       expect(g.parseRule('-NK>-h(K)r(N)').apply('ic')).toEqual('hi')
     })
     
-    xit("complex transformation rules", function() {
+    it("complex transformation rules", function() {
       expect(g.parseRule('-K>-x(Ks)').apply('a')).toEqual('a')
       expect(g.parseRule('-K>-x(Ks)').apply('an')).toEqual('ans')
       expect(g.parseRule('-K>-x(Ks)').apply('ad')).toEqual('ads')
