@@ -17,37 +17,45 @@ describe('Parse phonemes', function() {
     , Alt = GrammarPhonemes.Alt
     , Seq = GrammarPhonemes.Seq
 
-  it('Creation: should fail with improper params', function() {
-    expect(function() { 
-      new GrammarPhonemes(null)
-    }).toThrowError('phonemes should not be null')
-    
-    expect(function() { 
-      new GrammarPhonemes()
-    }).toThrowError('phonemes should be an object, not: undefined')
-    
-    expect(function() { 
-      new GrammarPhonemes(undefined)
-    }).toThrowError('phonemes should be an object, not: undefined')
-    
-    expect(function() { 
-      new GrammarPhonemes(42)
-    }).toThrowError('phonemes should be an object, not: 42')
-    
-    expect(function() { 
-      new GrammarPhonemes('plop')
-    }).toThrowError('phonemes should be an object, not: "plop"')
-    
-    expect(function() { 
-      new GrammarPhonemes([])
-    }).toThrowError('phonemes should be an object, not: []')
-    
-    expect(function() { 
-      new GrammarPhonemes({})
-    }).toThrowError('phonemes should not be an empty object: {}')
+  describe('Creation: should fail with improper params', function() {
+    it('phonemes should not be null', function() {
+      expect(function() { 
+        new GrammarPhonemes(null)
+      }).toThrowError('phonemes should not be null')
+    })
+    it('phonemes should be an object, not: undefined', function() {
+      expect(function() { 
+        new GrammarPhonemes()
+      }).toThrowError('phonemes should be an object, not: undefined')
+    })
+    it('phonemes should be an object, not: undefined', function() {
+      expect(function() { 
+        new GrammarPhonemes(undefined)
+      }).toThrowError('phonemes should be an object, not: undefined')
+    })
+    it('phonemes should be an object, not: 42', function() {
+      expect(function() { 
+        new GrammarPhonemes(42)
+      }).toThrowError('phonemes should be an object, not: 42')
+    })
+    it('phonemes should be an object, not: "plop"', function() {
+      expect(function() { 
+        new GrammarPhonemes('plop')
+      }).toThrowError('phonemes should be an object, not: "plop"')
+    })
+    it('phonemes should be an object, not: []', function() {
+      expect(function() { 
+        new GrammarPhonemes([])
+      }).toThrowError('phonemes should be an object, not: []')
+    })
+    it('phonemes should not be an empty object: {}', function() {
+      expect(function() { 
+        new GrammarPhonemes({})
+      }).toThrowError('phonemes should not be an empty object: {}')
+    })
   })
 
-  it('parse pattern into usable parts according to phonology definition', function() {
+  describe('parse pattern into usable parts according to phonology definition', function() {
     var p = {
         V: 'a e o i u',
         Cu: 'p t c f th s sh',
@@ -61,32 +69,53 @@ describe('Parse phonemes', function() {
       }
       , g = new GrammarPhonemes(p)
 
-    expect(g.parse('v')).toEqual(Seq('v',['v']))
-    expect(g.parse('V')).toEqual(Seq('V',[Alt('V',['a','e','o','i','u'])]))
-    expect(g.parse('C')).toEqual(Seq('C',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h'])]))
-    
-    expect(g.parse('Cr')).toEqual(Seq('Cr',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'r']))
-    expect(g.parse('<Cr>')).toEqual(Seq('<Cr>',[Alt('Cr',['m','n','l','r','h'])]))
-    
-    expect(g.parse('vV')).toEqual(Seq('vV',['v',Alt('V',['a','e','o','i','u'])]))
-    
-    expect(g.parse('vVcCvca<Cu>e')).toEqual(Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']))
-    
-    expect(g.parse('plop<Cu>plouf')).toEqual(Seq('plop<Cu>plouf',['plop',Alt('Cu',['p','t','c','f','th','s','sh']),'plouf']))
-    
-    expect(g.parse('N')).toEqual(Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]))
+    it('',function() {
+      expect(g.parse('v')).toEqual(Seq('v',['v']))
+    })
+    it('',function() {
+      expect(g.parse('V')).toEqual(Seq('V',[Alt('V',['a','e','o','i','u'])]))
+    })
+    it('',function() {
+      expect(g.parse('C')).toEqual(Seq('C',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h'])]))
+    })
+    it('',function() {
+      expect(g.parse('Cr')).toEqual(Seq('Cr',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'r']))
+    })
+    it('',function() {
+      expect(g.parse('<Cr>')).toEqual(Seq('<Cr>',[Alt('Cr',['m','n','l','r','h'])]))
+    })
+    it('',function() {
+      expect(g.parse('vV')).toEqual(Seq('vV',['v',Alt('V',['a','e','o','i','u'])]))
+    })
+    it('',function() {
+      expect(g.parse('vVcCvca<Cu>e')).toEqual(Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']))
+    })
+    it('',function() {
+      expect(g.parse('plop<Cu>plouf')).toEqual(Seq('plop<Cu>plouf',['plop',Alt('Cu',['p','t','c','f','th','s','sh']),'plouf']))
+    })
+    it('',function() {
+      expect(g.parse('N')).toEqual(Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]))
+    })
   })
   
-  it('build regex from parsed pattern', function() {
-    expect(Seq('v',['v']).buildRegex()).toEqual('v')
-    
-    expect(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex()).toEqual('(a|e|o|i|u)')
-    expect(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex(true)).toEqual('(?:a|e|o|i|u)')
-    
-    expect(Seq('Cr',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'r']).buildRegex()).toEqual('(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)r')
-    
-    expect(Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']).buildRegex()).toEqual('v(a|e|o|i|u)c(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)vca(p|t|c|f|th|s|sh)e')
-    
-    expect(Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]).buildRegex()).toEqual('(a|e|o|i|u|(?:a|e|o|i|u)(?:a|e|o|i|u))')
+  describe('build regex from parsed pattern', function() {
+    it('',function() {
+      expect(Seq('v',['v']).buildRegex()).toEqual('v')
+    })
+    it('',function() {
+      expect(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex()).toEqual('(a|e|o|i|u)')
+    })
+    it('',function() {
+      expect(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex(true)).toEqual('(?:a|e|o|i|u)')
+    })
+    it('',function() {
+      expect(Seq('Cr',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'r']).buildRegex()).toEqual('(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)r')
+    })
+    it('',function() {
+      expect(Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']).buildRegex()).toEqual('v(a|e|o|i|u)c(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)vca(p|t|c|f|th|s|sh)e')
+    })
+    it('',function() {
+      expect(Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]).buildRegex()).toEqual('(a|e|o|i|u|(?:a|e|o|i|u)(?:a|e|o|i|u))')
+    })
   })
 })

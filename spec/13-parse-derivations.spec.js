@@ -1,22 +1,20 @@
 /*
  * Copyright 2016 Nicolas Lochet Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy of the License at
- *
+ *      
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-module.exports = (function () {
-  'use strict'
-  function GrammarLexicon(lexicon) {
-    if (lexicon === null) throw new Error('lexicon should not be null')
-    if (typeof lexicon !== 'object' || lexicon instanceof Array) throw new Error('lexicon should be an object, not: '+JSON.stringify(lexicon,null,2))
-    if (Object.keys(lexicon).length === 0) throw new Error('lexicon should not be an empty object: '+JSON.stringify(lexicon,null,2))
-    this._ = lexicon
-  }
+'use strict'
 
-  return GrammarLexicon
-})()
+describe('Parse derivations', function() {
+  describe('', function() {
+    it('', function() {
+    
+    })
+  })
+})

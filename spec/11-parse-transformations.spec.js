@@ -15,31 +15,47 @@ describe('parse transformations', function() {
   
   var GrammarTransformations = require(__dirname+'/../lib/grammar-transformations')
   
-  it('Creation: should fail with improper params', function() {
-    expect(function() {
-      new GrammarTransformations()
-    }).toThrowError('transformations should be an object, not: undefined')
-    expect(function() {
-      new GrammarTransformations([])
-    }).toThrowError('transformations should be an object, not: []')
-    expect(function() {
-      new GrammarTransformations(null)
-    }).toThrowError('transformations should not be null')
-    expect(function() {
-      new GrammarTransformations({})
-    }).toThrowError('transformations should not be an empty object: {}')
-    expect(function() {
-      new GrammarTransformations({f : {a: 'i'}})
-    }).toThrowError('phonemes should be an object, not: undefined')
-    expect(function() {
-      new GrammarTransformations({f : {a: 'i'}}, [])
-    }).toThrowError('phonemes should be an object, not: []')
-    expect(function() {
-      new GrammarTransformations({f : {a: 'i'}}, null)
-    }).toThrowError('phonemes should not be null')
-    expect(function() {
-      new GrammarTransformations({f : {a: 'i'}}, {})
-    }).toThrowError('phonemes should not be an empty object: {}')
+  describe('Creation: should fail with improper params: ', function() {
+    it('transformations should be an object, not: undefined', function() {
+      expect(function() {
+        new GrammarTransformations()
+      }).toThrowError('transformations should be an object, not: undefined')
+    })
+    it('transformations should be an object, not: []', function() {
+      expect(function() {
+        new GrammarTransformations([])
+      }).toThrowError('transformations should be an object, not: []')
+    })
+    it('transformations should not be null', function() {
+      expect(function() {
+        new GrammarTransformations(null)
+      }).toThrowError('transformations should not be null')
+    })
+    it('transformations should not be an empty object: {}', function() {
+      expect(function() {
+        new GrammarTransformations({})
+      }).toThrowError('transformations should not be an empty object: {}')
+    })
+    it('phonemes should be an object, not: undefined', function() {
+      expect(function() {
+        new GrammarTransformations({f : {a: 'i'}})
+      }).toThrowError('phonemes should be an object, not: undefined')
+    })
+    it('phonemes should be an object, not: []', function() {
+      expect(function() {
+        new GrammarTransformations({f : {a: 'i'}}, [])
+      }).toThrowError('phonemes should be an object, not: []')
+    })
+    it('phonemes should not be null', function() {
+      expect(function() {
+        new GrammarTransformations({f : {a: 'i'}}, null)
+      }).toThrowError('phonemes should not be null')
+    })
+    it('phonemes should not be an empty object: {}', function() {
+      expect(function() {
+        new GrammarTransformations({f : {a: 'i'}}, {})
+      }).toThrowError('phonemes should not be an empty object: {}')
+    })
   })
   
   describe('parse rule and apply', function() {
