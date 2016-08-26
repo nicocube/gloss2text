@@ -52,8 +52,62 @@ describe('Parse lexicon', function() {
       }).toThrowError('lexicon should not be an empty object: {}')
     })
   })
-  
-  it('', function() {
-  
+
+  describe('', function() {
+    var l = {
+          STA: {
+            verbal: 've, ves',
+            irregular: {
+              PFV: 'vil'
+            }
+          },
+          ACT: {
+            verbal: 'ma'
+          },
+          THE: {
+            verbal: 'shu, shus',
+            irregular: {
+              'SPL.ATTR': 'shin',
+              'SPL.NEG.ATTR': 'shushia'
+            }
+          },
+          ITGa: {
+            nominal: 'ne, nedh',
+            meaning: 'who'
+          },
+          ITGi: {
+            nominal: 'cul',
+            compose: [ 'C-ul' ]
+          },
+          one: {
+            verbal: 'ish'
+          },
+          two: {
+            verbal: 'then'
+          },
+          ten: {
+            verbal: 'farl',
+            compose: [ 'farli-C', 'C-arli-C', 'C-arl' ]
+          }
+        }
+      , gl = new GrammarLexicon(l)
+      , Entry = GrammarLexicon.Entry
+    
+    it('', function() {
+      var actual = gl.find('ACT')
+        , expected = Entry('ACT',{ verbal: 'ma' })
+      expect(actual).toEqual(expected)
+      expect(actual.paradigm).toEqual('verbal')
+      expect(actual.parts).toEqual(['ma'])
+    })
+    
+    it('', function() {
+      var actual = gl.find('STA')
+        , expected = Entry('STA',{ verbal: 've, ves', irregular: { PFV: 'vil' } })
+      expect(actual).toEqual(expected)
+      expect(actual.paradigm).toEqual('verbal')
+      expect(actual.parts).toEqual(['ve', 'ves'])
+      expect(actual.irregular).toEqual({ PFV: 'vil' })
+    })
   })
 })
