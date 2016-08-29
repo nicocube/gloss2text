@@ -92,7 +92,7 @@ describe('Parse lexicon', function() {
         }
       , gl = new GrammarLexicon(l)
       , Entry = GrammarLexicon.Entry
-    
+
     it('', function() {
       var actual = gl.find('ACT')
         , expected = Entry('ACT',{ verbal: 'ma' })
@@ -100,7 +100,7 @@ describe('Parse lexicon', function() {
       expect(actual.paradigm).toEqual('verbal')
       expect(actual.parts).toEqual(['ma'])
     })
-    
+
     it('', function() {
       var actual = gl.find('STA')
         , expected = Entry('STA',{ verbal: 've, ves', irregular: { PFV: 'vil' } })
@@ -108,6 +108,15 @@ describe('Parse lexicon', function() {
       expect(actual.paradigm).toEqual('verbal')
       expect(actual.parts).toEqual(['ve', 'ves'])
       expect(actual.irregular).toEqual({ PFV: 'vil' })
+    })
+
+    it('', function() {
+      var actual = gl.find('ten')
+        , expected = Entry('ten',{ verbal: 'farl', compose: [ 'farli-C', 'C-arli-C', 'C-arl' ] })
+      expect(actual).toEqual(expected)
+      expect(actual.paradigm).toEqual('verbal')
+      expect(actual.parts).toEqual(['farl'])
+      expect(actual.compose).toEqual([ 'farli-C', 'C-arli-C', 'C-arl' ])
     })
   })
 })
