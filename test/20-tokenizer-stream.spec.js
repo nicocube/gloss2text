@@ -14,7 +14,7 @@ var test = require('tape')
   , stream = require('stream')
   , Tokenizer = require(__dirname+'/../lib/tokenizer')
 
-test('tokenize a string', function(t) {
+test('Tokenizer: parse a string', function(t) {
   var i = 0
     , pt = new stream.PassThrough()
     , tk = Tokenizer()
@@ -66,7 +66,7 @@ test('tokenize a string', function(t) {
 
 })
 
-test('tokenize multiple string', function(t) {
+test('Tokenizer: parse multiple string', function(t) {
   var i = 0
     , pt = new stream.PassThrough()
     , tk = Tokenizer()

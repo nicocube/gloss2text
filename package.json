@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "pretest": "npm run lint",
-    "test": "tape test/**/*.spec.js |tap-dot",
-    "autotest": "nodemon -e js,yml -x 'tape test/**/*.spec.js |tap-dot'",
+    "test": "tape test/**/*.spec.js |tap-summary --no-progress",
+    "autotest": "nodemon -e js,yml -x 'tape test/**/*.spec.js |tap-summary --no-progress'",
     "coverage": "istanbul cover tape test/**/*.spec.js",
     "lint": "eslint index.js lib/ test/",
     "autolint": "nodemon -x eslint index.js lib/ test/"
@@ -29,8 +29,8 @@
   "devDependencies": {
     "eslint": "^2.13.1",
     "istanbul": "^0.4.5",
-    "tap-dot": "^1.0.5",
-    "tape": "^4.6.0"
+    "tape": "^4.6.0",
+    "tap-summary": "^3.0.1"
   },
   "dependencies": {
     "chalk": "^1.1.3",

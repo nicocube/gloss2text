@@ -12,6 +12,6 @@
 'use strict'
 var test = require('tape')
 
-test('Parse derivations', function(t) {
+test('Derivations: ', function(t) {
   t.end()
 })

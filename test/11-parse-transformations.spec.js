@@ -11,17 +11,19 @@
 
 'use strict'
 var test = require('tape')
+  , GrammarPhonemes  = require(__dirname+'/../lib/grammar-phonemes')
   , GrammarTransformations = require(__dirname+'/../lib/grammar-transformations')
 
-test('Creation: should fail with improper params: ', function(t) {
-  t.throws(function() { new GrammarTransformations() }, 'transformations should be an object, not: undefined')
-  t.throws(function() { new GrammarTransformations([]) }, 'transformations should be an object, not: []')
-  t.throws(function() { new GrammarTransformations(null) }, 'transformations should not be null')
-  t.throws(function() { new GrammarTransformations({}) }, 'transformations should not be an empty object: {}')
-  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}) }, 'phonemes should be an object, not: undefined')
-  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, []) }, 'phonemes should be an object, not: []')
-  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, null) }, 'phonemes should not be null')
-  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, {}) }, 'phonemes should not be an empty object: {}')
+test('Transformations: should fail with improper params: ', function(t) {
+  t.throws(function() { new GrammarTransformations() }, /^Error: transformations should be an object, not: undefined$/)
+  t.throws(function() { new GrammarTransformations([]) }, /^Error: transformations should be an object, not: \[\]$/)
+  t.throws(function() { new GrammarTransformations(null) }, /^Error: transformations should not be null$/)
+  t.throws(function() { new GrammarTransformations({}) }, /^Error: transformations should not be an empty object: \{\}$/)
+  
+  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}) }, /^Error: phonemes must be an instance of GrammarPhonemes$/)
+  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, []) }, /^Error: phonemes must be an instance of GrammarPhonemes$/)
+  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, null) }, /^Error: phonemes must be an instance of GrammarPhonemes$/)
+  t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, {}) }, /^Error: phonemes must be an instance of GrammarPhonemes$/)
   t.end()
 })
 
@@ -49,9 +51,9 @@ var p = {
       _: ''
     }
   }
-  , g = new GrammarTransformations(t, p)
+  , g = new GrammarTransformations(t, new GrammarPhonemes(p))
 
-test('parse basic rules', function(t) {
+test('Transformations: parse basic rules', function(t) {
   t.deepEqual(g.parseRule('_').apply('a'),'a')
   t.deepEqual(g.parseRule('-n').apply('a'),'an')
   t.deepEqual(g.parseRule('-n>-d').apply('a'),'a')
@@ -59,21 +61,21 @@ test('parse basic rules', function(t) {
   t.end()
 })
 
-test('parse match pattern replace with const', function(t) {
+test('Transformations: parse match pattern replace with const', function(t) {
   t.deepEqual(g.parseRule('-K>-n').apply('a'),'a')
   t.deepEqual(g.parseRule('-K>-n').apply('ad'),'an')
   t.deepEqual(g.parseRule('-K>-n').apply('as'),'an')
   t.end()
 })
 
-test('parse match pattern replace with capture simple', function(t) {
+test('Transformations: parse match pattern replace with capture simple', function(t) {
   t.deepEqual(g.parseRule('-K>-KK').apply('a'),'a')
   t.deepEqual(g.parseRule('-K>-KK').apply('an'),'ann')
   t.deepEqual(g.parseRule('-NK>-KNK').apply('an'),'nan')
   t.end()
 })
 
-test('parse match pattern replace with capture complex', function(t) {
+test('Transformations: parse match pattern replace with capture complex', function(t) {
   t.deepEqual(g.parseRule('-CC>-CiCCe').apply('adr'),'adirre')
   t.deepEqual(g.parseRule('-CC>-CCaCu').apply('adr'),'adraru')
   t.deepEqual(g.parseRule('-CC>-<C0><C0>a<C1>u').apply('adr'),'addaru')
@@ -82,7 +84,7 @@ test('parse match pattern replace with capture complex', function(t) {
   t.end()
 })
 
-test('parse simple transformation rules', function(t) {
+test('Transformations: parse simple transformation rules', function(t) {
   t.deepEqual(g.parseRule('-N>-r(N)').apply('a'),'e')
   t.deepEqual(g.parseRule('-N>-r(N)').apply('i'),'i')
   t.deepEqual(g.parseRule('-N>-l(N)').apply('i'),'ae')
@@ -91,7 +93,7 @@ test('parse simple transformation rules', function(t) {
   t.end()
 })
 
-test('parse simple transformation rules + capture', function(t) {
+test('Transformations: parse simple transformation rules + capture', function(t) {
   t.deepEqual(g.parseRule('-Nn>-r(N)').apply('an'),'e')
   t.deepEqual(g.parseRule('-NK>-l(N)').apply('in'),'ae')
   t.deepEqual(g.parseRule('-NK>-l(N)K').apply('ien'),'aien')
@@ -100,7 +102,7 @@ test('parse simple transformation rules + capture', function(t) {
   t.end()
 })
 
-test('parse double transformation rules + capture', function(t) {
+test('Transformations: parse double transformation rules + capture', function(t) {
   t.deepEqual(g.parseRule('-NK>-r(N)h(K)').apply('i'),'i')
   t.deepEqual(g.parseRule('-NK>-r(N)h(K)').apply('is'),'i')
   t.deepEqual(g.parseRule('-NK>-r(N)-h(K)').apply('is'),'i')
@@ -109,7 +111,7 @@ test('parse double transformation rules + capture', function(t) {
   t.end()
 })
 
-test('parse complex transformation rules', function(t) {
+test('Transformations: parse complex transformation rules', function(t) {
   t.deepEqual(g.parseRule('-K>-x(Ks)').apply('a'),'a')
   t.deepEqual(g.parseRule('-K>-x(Ks)').apply('an'),'ans')
   t.deepEqual(g.parseRule('-K>-x(Ks)').apply('ad'),'ads')

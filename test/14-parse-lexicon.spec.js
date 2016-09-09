@@ -13,7 +13,7 @@
 var test = require('tape')
   , GrammarLexicon = require(__dirname+'/../lib/grammar-lexicon')
 
-test('Creation: should fail with improper params', function(t) {
+test('Lexicon: should fail with improper params', function(t) {
   t.throws(function() { new GrammarLexicon(null) }, 'lexicon should not be null')
   t.throws(function() { new GrammarLexicon() }, 'lexicon should be an object, not: undefined')
   t.throws(function() { new GrammarLexicon(undefined) }, 'lexicon should be an object, not: undefined')
@@ -64,7 +64,7 @@ var l = {
   , gl = new GrammarLexicon(l)
   , Entry = GrammarLexicon.Entry
 
-test('', function(t) {
+test('Lexicon: find simple entry', function(t) {
   var actual = gl.find('ACT')
     , expected = Entry('ACT',{ verbal: 'ma' })
   t.deepEqual(actual,expected)
@@ -73,7 +73,7 @@ test('', function(t) {
   t.end()
 })
 
-test('', function(t) {
+test('Lexicon: find entry with irregular', function(t) {
   var actual = gl.find('STA')
     , expected = Entry('STA',{ verbal: 've, ves', irregular: { PFV: 'vil' } })
   t.deepEqual(actual,expected)
@@ -88,7 +88,7 @@ test('', function(t) {
   t.end()
 })
 
-test('', function(t) {
+test('Lexicon: find entry with compose', function(t) {
   var actual = gl.find('ten')
     , expected = Entry('ten',{ verbal: 'farl', compose: [ 'farli-C', 'C-arli-C', 'C-arl' ] })
   t.deepEqual(actual,expected)
@@ -98,7 +98,7 @@ test('', function(t) {
   t.end()
 })
 
-test('', function(t) {
+test('Lexicon: No paradigm found', function(t) {
   t.throws(function() { gl.find('XX') }, 'No paradigm found in: undefined')
   t.end()
 })

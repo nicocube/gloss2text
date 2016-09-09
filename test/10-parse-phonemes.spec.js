@@ -15,18 +15,18 @@ var test = require('tape')
   , Alt = GrammarPhonemes.Alt
   , Seq = GrammarPhonemes.Seq
 
-test('Creation: should fail with improper params', function(t) {
-  t.throws(function() { new GrammarPhonemes(null) }, 'phonemes should not be null')
-  t.throws(function() { new GrammarPhonemes() },'phonemes should be an object, not: undefined')
-  t.throws(function() { new GrammarPhonemes(undefined) }, 'phonemes should be an object, not: undefined')
-  t.throws(function() { new GrammarPhonemes(42) }, 'phonemes should be an object, not: 42')
-  t.throws(function() { new GrammarPhonemes('plop') }, 'phonemes should be an object, not: "plop"')
-  t.throws(function() { new GrammarPhonemes([]) }, 'phonemes should be an object, not: []')
-  t.throws(function() { new GrammarPhonemes({}) }, 'phonemes should not be an empty object: {}')
+test('Phonemes: should fail with improper params', function(t) {
+  t.throws(function() { new GrammarPhonemes(null) }, /^Error: phonemes should not be null$/)
+  t.throws(function() { new GrammarPhonemes() }, /^Error: phonemes should be an object, not: undefined$/)
+  t.throws(function() { new GrammarPhonemes(undefined) }, /^Error: phonemes should be an object, not: undefined$/)
+  t.throws(function() { new GrammarPhonemes(42) }, /^Error: phonemes should be an object, not: 42$/)
+  t.throws(function() { new GrammarPhonemes('plop') }, /^Error: phonemes should be an object, not: "plop"$/)
+  t.throws(function() { new GrammarPhonemes([]) }, /^Error: phonemes should be an object, not: \[\]$/)
+  t.throws(function() { new GrammarPhonemes({}) }, /^Error: phonemes should not be an empty object: \{\}$/)
   t.end()
 })
 
-test('parse pattern into usable parts according to phonology definition', function(t) {
+test('Phonemes: parse pattern into usable parts according to phonology definition', function(t) {
   var p = {
       V: 'a e o i u',
       Cu: 'p t c f th s sh',
@@ -52,7 +52,7 @@ test('parse pattern into usable parts according to phonology definition', functi
   t.end()
 })
 
-test('build regex from parsed pattern', function(t) {
+test('Phonemes: build regex from parsed pattern', function(t) {
   t.deepEqual(Seq('v',['v']).buildRegex(),'v')
   t.deepEqual(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex(),'(a|e|o|i|u)')
   t.deepEqual(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex(true),'(?:a|e|o|i|u)')
