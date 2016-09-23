@@ -73,7 +73,7 @@ test('Paradigms: Parse paradigms', function(t) {
 
 test('Paradigms: Parse paradigms', function(t) {
   var lemma = gp.find('nominal').apply('mna')
-  /*
+  //*
   t.deepEqual(lemma.resolve([]), 'mna')
   t.deepEqual(lemma.resolve(['ABS']), 'mna')
   t.deepEqual(lemma.resolve(['ABS.SG']), 'mna')
