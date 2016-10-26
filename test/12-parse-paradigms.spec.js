@@ -12,7 +12,7 @@
 'use strict'
 var test = require('tape')
   , GrammarParadigms = require(__dirname+'/../lib/grammar-paradigms')
-//  , Paradigm = 
+//  , Paradigm =
 
 test('Paradigms: should fail with improper params', function(t) {
   t.throws(function() { new GrammarParadigms(null) }, /^Error: paradigms should not be null$/)
@@ -63,17 +63,19 @@ var p = {
   , gp = new GrammarParadigms(p)
 
 test('Paradigms: Parse paradigms', function(t) {
-  var paradigm = gp.find('nominal')
   /*
+  var paradigm = gp.find('nominal')
   t.deepEqual(paradigm, {})
   //*/
-  
+  t.fail('TODO: find suitable comparison')
   t.end()
 })
 
 test('Paradigms: Parse paradigms', function(t) {
   var lemma = gp.find('nominal').apply('mna')
-  //*
+  
+  console.log(lemma)
+  /*
   t.deepEqual(lemma.resolve([]), 'mna')
   t.deepEqual(lemma.resolve(['ABS']), 'mna')
   t.deepEqual(lemma.resolve(['ABS.SG']), 'mna')
@@ -82,5 +84,6 @@ test('Paradigms: Parse paradigms', function(t) {
   t.deepEqual(lemma.resolve(['ABS.PL']), 'mnau')
   //*/
   
+  t.fail('TODO: find suitable comparison')
   t.end()
 })

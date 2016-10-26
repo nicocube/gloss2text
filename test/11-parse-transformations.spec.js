@@ -19,7 +19,7 @@ test('Transformations: should fail with improper params: ', function(t) {
   t.throws(function() { new GrammarTransformations([]) }, /^Error: transformations should be an object, not: \[\]$/)
   t.throws(function() { new GrammarTransformations(null) }, /^Error: transformations should not be null$/)
   t.throws(function() { new GrammarTransformations({}) }, /^Error: transformations should not be an empty object: \{\}$/)
-  
+
   t.throws(function() { new GrammarTransformations({f : {a: 'i'}}) }, /^Error: phonemes must be an instance of GrammarPhonemes$/)
   t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, []) }, /^Error: phonemes must be an instance of GrammarPhonemes$/)
   t.throws(function() { new GrammarTransformations({f : {a: 'i'}}, null) }, /^Error: phonemes must be an instance of GrammarPhonemes$/)
