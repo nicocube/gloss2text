@@ -11,6 +11,8 @@
 
 'use strict'
 var test = require('tape')
+  , GrammarPhonemes = require(__dirname+'/../lib/grammar-phonemes')
+  , GrammarTransformations = require(__dirname+'/../lib/grammar-transformations')
   , GrammarParadigms = require(__dirname+'/../lib/grammar-paradigms')
 //  , Paradigm =
 
@@ -26,6 +28,30 @@ test('Paradigms: should fail with improper params', function(t) {
 })
 
 var p = {
+    V: 'a e o i u',
+    Cu: 'p t c f th s sh',
+    Cv: 'b d g v dh z j',
+    Cr: 'm n l r h',
+    C: '<Cv> <Cu> <Cr>',
+    O: 'C',
+    K: 'C',
+    N: 'V VV',
+    S: 'N ON ONK NK'
+  }
+  , t = {
+    r: { a: 'e', o: 'e', _: '_'},
+    l: { a: 'ei', e: 'ie', i: 'ae', o: 'ue', u: 'iu', ae: 'eia', ie: 'aie', ei: 'iae'},
+    h: { n: 'nd', c: 'h', _: ''},
+    x: {
+      ns: '_',
+      ds: 'ds',
+      shs: 'sh',
+      ts: 'th',
+      ss : 's',
+      _: ''
+    }
+  }
+  , pa = {
     nominal: {
       _common: {
         PP: {
@@ -60,30 +86,27 @@ var p = {
       }
     }
   }
-  , gp = new GrammarParadigms(p)
+  , gp = new GrammarParadigms(pa, new GrammarTransformations(t, new GrammarPhonemes(p)))
 
-test('Paradigms: Parse paradigms', function(t) {
-  /*
-  var paradigm = gp.find('nominal')
-  t.deepEqual(paradigm, {})
-  //*/
-  t.fail('TODO: find suitable comparison')
-  t.end()
-})
-
-test('Paradigms: Parse paradigms', function(t) {
+test('Paradigms: resolve single form lemma', function(t) {
   var lemma = gp.find('nominal').apply('mna')
   
-  console.log(lemma)
-  /*
+  //*
   t.deepEqual(lemma.resolve([]), 'mna')
   t.deepEqual(lemma.resolve(['ABS']), 'mna')
-  t.deepEqual(lemma.resolve(['ABS.SG']), 'mna')
+  t.deepEqual(lemma.resolve(['ABS','SG']), 'mna')
   
   t.deepEqual(lemma.resolve(['PL']), 'mnau')
-  t.deepEqual(lemma.resolve(['ABS.PL']), 'mnau')
-  //*/
+  t.deepEqual(lemma.resolve(['ABS','PL']), 'mnau')
   
-  t.fail('TODO: find suitable comparison')
+  t.deepEqual(lemma.resolve(['NOM']), 'mnan')
+  t.deepEqual(lemma.resolve(['NOM','PL']), 'mnaun')
+  
+  t.deepEqual(lemma.resolve(['PP','LOC']), 'mnamei')
+  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'mnamedhei')
+  
+  t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'mnaumei')
+  t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'mnaumedhei')
+  //*/t.fail('TODO: find suitable comparison')
   t.end()
 })
