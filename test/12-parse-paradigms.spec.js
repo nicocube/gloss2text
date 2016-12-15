@@ -34,7 +34,7 @@ var p = {
     Cr: 'm n l r h',
     C: '<Cv> <Cu> <Cr>',
     O: 'C',
-    K: 'C',
+    K: 'C CC',
     N: 'V VV',
     S: 'N ON ONK NK'
   }
@@ -57,6 +57,8 @@ var p = {
         PP: {
           LOC: '-ei',
           ORG:	'-ui',
+          DIR:	'-end',
+          TRV:	'-eos',
           _infix: {
             INT: '-an',
             EXT: '-edh'
@@ -74,7 +76,7 @@ var p = {
         }
       },
       '-N': {
-        _compose: '-N+C, -Nm+V',
+        _compose: '+NK>+mNK, +N>+mN',
         _: 'ABS.SG',
         ABS: {
           PL: '-N>-l(N)'
@@ -86,7 +88,7 @@ var p = {
       },
       '-N, -NF': {
         _extends: 'nominal(-N)',
-        _compose: '-N+C, -NF+V'
+        _compose: '+ON>(-N)-ON, +ONK>(-N)-ONK, +N>(-NF)-N, +NK>(-NF)-NK '
       }
     }
   }
@@ -105,9 +107,11 @@ test('Paradigms: resolve single form lemma', function(t) {
 
   t.deepEqual(lemma.resolve(['NOM']), 'mnan')
   t.deepEqual(lemma.resolve(['NOM','PL']), 'mnaun')
-  /*
-  t.deepEqual(lemma.resolve(['PP','LOC']), 'mnamei')
 
+  t.deepEqual(lemma.resolve(['PP','LOC']), 'mnamei')
+  t.deepEqual(lemma.resolve(['PP','DIR']), 'mnamend')
+  t.deepEqual(lemma.resolve(['PP','TRV']), 'mnameos')
+  /*
   t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'mnamedhei')
 
   t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'mnaumei')

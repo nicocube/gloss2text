@@ -48,7 +48,7 @@ test('Phonemes: parse pattern into usable parts according to phonology definitio
   t.deepEqual(g.parse('vV'),Seq('vV',['v',Alt('V',['a','e','o','i','u'])]))
   t.deepEqual(g.parse('vVcCvca<Cu>e'),Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']))
   t.deepEqual(g.parse('plop<Cu>plouf'),Seq('plop<Cu>plouf',['plop',Alt('Cu',['p','t','c','f','th','s','sh']),'plouf']))
-  t.deepEqual(g.parse('N'),Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]))
+  t.deepEqual(g.parse('N'),Seq('N',[Alt('N', [Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])]),'a','e','o','i','u'])]))
   t.end()
 })
 
@@ -58,6 +58,6 @@ test('Phonemes: build regex from parsed pattern', function(t) {
   t.deepEqual(Seq('V',[Alt('V',['a','e','o','i','u'])]).buildRegex(true),'(?:a|e|o|i|u)')
   t.deepEqual(Seq('Cr',[Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'r']).buildRegex(),'(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)r')
   t.deepEqual(Seq('vVcCvca<Cu>e',['v',Alt('V',['a','e','o','i','u']),'c',Alt('C',['b','d','g','v','dh','z','j','p','t','c','f','th','s','sh','m','n','l','r','h']),'vca',Alt('Cu',['p','t','c','f','th','s','sh']),'e']).buildRegex(),'v(a|e|o|i|u)c(b|d|g|v|dh|z|j|p|t|c|f|th|s|sh|m|n|l|r|h)vca(p|t|c|f|th|s|sh)e')
-  t.deepEqual(Seq('N',[Alt('N', ['a','e','o','i','u', Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])])])]).buildRegex(),'(a|e|o|i|u|(?:a|e|o|i|u)(?:a|e|o|i|u))')
+  t.deepEqual(Seq('N',[Alt('N', [Seq('VV',[Alt('V',['a','e','o','i','u']),Alt('V',['a','e','o','i','u'])]),'a','e','o','i','u'])]).buildRegex(),'((?:a|e|o|i|u)(?:a|e|o|i|u)|a|e|o|i|u)')
   t.end()
 })
