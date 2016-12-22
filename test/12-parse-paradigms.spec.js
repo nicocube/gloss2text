@@ -111,10 +111,12 @@ test('Paradigms: resolve single form lemma', function(t) {
   t.deepEqual(lemma.resolve(['PP','LOC']), 'mnamei')
   t.deepEqual(lemma.resolve(['PP','DIR']), 'mnamend')
   t.deepEqual(lemma.resolve(['PP','TRV']), 'mnameos')
+  
+  t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'mnaumei')
+  t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'mnaumei')
+
   /*
   t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'mnamedhei')
-
-  t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'mnaumei')
   t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'mnaumedhei')
   //*/
   t.end()
