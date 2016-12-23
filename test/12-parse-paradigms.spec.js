@@ -94,7 +94,7 @@ var p = {
   }
   , gp = new GrammarParadigms(pa, new GrammarTransformations(t, new GrammarPhonemes(p)))
 
-test('Paradigms: resolve single form lemma', function(t) {
+test('Paradigms: resolve -N form lemma', function(t) {
   var lemma = gp.find('nominal').apply('mna')
 
   //*
@@ -111,13 +111,69 @@ test('Paradigms: resolve single form lemma', function(t) {
   t.deepEqual(lemma.resolve(['PP','LOC']), 'mnamei')
   t.deepEqual(lemma.resolve(['PP','DIR']), 'mnamend')
   t.deepEqual(lemma.resolve(['PP','TRV']), 'mnameos')
-  
+
   t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'mnaumei')
   t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'mnaumei')
 
   /*
   t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'mnamedhei')
   t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'mnaumedhei')
+  //*/
+  t.end()
+})
+
+test('Paradigms: resolve -r (-K) form lemma', function(t) {
+  var lemma = gp.find('nominal').apply('er')
+
+  //*
+  t.deepEqual(lemma.resolve([]), 'er')
+  t.deepEqual(lemma.resolve(['ABS']), 'er')
+  t.deepEqual(lemma.resolve(['ABS','SG']), 'er')
+
+  t.deepEqual(lemma.resolve(['PL']), 'eor')
+  t.deepEqual(lemma.resolve(['ABS','PL']), 'eor')
+
+  t.deepEqual(lemma.resolve(['NOM']), 'ern')
+  t.deepEqual(lemma.resolve(['NOM','PL']), 'eorn')
+
+  t.deepEqual(lemma.resolve(['PP','LOC']), 'erei')
+  t.deepEqual(lemma.resolve(['PP','DIR']), 'erend')
+  t.deepEqual(lemma.resolve(['PP','TRV']), 'ereos')
+
+  t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'eorei')
+  t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'eorei')
+
+  /*
+  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'eoredhei')
+  t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'eoredhei')
+  //*/
+  t.end()
+})
+
+test('Paradigms: resolve -n (-K) form lemma', function(t) {
+  var lemma = gp.find('nominal').apply('rin')
+
+  //*
+  t.deepEqual(lemma.resolve([]), 'rin')
+  t.deepEqual(lemma.resolve(['ABS']), 'rin')
+  t.deepEqual(lemma.resolve(['ABS','SG']), 'rin')
+
+  t.deepEqual(lemma.resolve(['PL']), 'rien')
+  t.deepEqual(lemma.resolve(['ABS','PL']), 'rien')
+
+  t.deepEqual(lemma.resolve(['NOM']), 'rind')
+  t.deepEqual(lemma.resolve(['NOM','PL']), 'riend')
+
+  t.deepEqual(lemma.resolve(['PP','LOC']), 'rinei')
+  t.deepEqual(lemma.resolve(['PP','DIR']), 'rinend')
+  t.deepEqual(lemma.resolve(['PP','TRV']), 'rineos')
+
+  t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'rienei')
+  t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'rienei')
+
+  /*
+  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'rienedhei')
+  t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'rienedhei')
   //*/
   t.end()
 })
