@@ -115,7 +115,6 @@ test('Paradigms: resolve -N form lemma', function(t) {
   t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'mnaumei')
   t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'mnaumei')
 
-  /*
   t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'mnamedhei')
   t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'mnaumedhei')
   //*/
@@ -143,8 +142,7 @@ test('Paradigms: resolve -r (-K) form lemma', function(t) {
   t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'eorei')
   t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'eorei')
 
-  /*
-  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'eoredhei')
+  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'eredhei')
   t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'eoredhei')
   //*/
   t.end()
@@ -171,9 +169,35 @@ test('Paradigms: resolve -n (-K) form lemma', function(t) {
   t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'rienei')
   t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'rienei')
 
-  /*
-  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'rienedhei')
+  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'rinedhei')
   t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'rienedhei')
+  //*/
+  t.end()
+})
+
+test('Paradigms: resolve -sh (-K) form lemma', function(t) {
+  var lemma = gp.find('nominal').apply('cash')
+
+  //*
+  t.deepEqual(lemma.resolve([]), 'cash')
+  t.deepEqual(lemma.resolve(['ABS']), 'cash')
+  t.deepEqual(lemma.resolve(['ABS','SG']), 'cash')
+
+  t.deepEqual(lemma.resolve(['PL']), 'caush')
+  t.deepEqual(lemma.resolve(['ABS','PL']), 'caush')
+
+  t.deepEqual(lemma.resolve(['NOM']), 'cashen')
+  t.deepEqual(lemma.resolve(['NOM','PL']), 'caushon')
+
+  t.deepEqual(lemma.resolve(['PP','LOC']), 'cashei')
+  t.deepEqual(lemma.resolve(['PP','DIR']), 'cashend')
+  t.deepEqual(lemma.resolve(['PP','TRV']), 'casheos')
+
+  t.deepEqual(lemma.resolve(['PL','PP','LOC']), 'caushei')
+  t.deepEqual(lemma.resolve(['ABS', 'PL','PP','LOC']), 'caushei')
+
+  t.deepEqual(lemma.resolve(['PP','EXT','LOC']), 'cashedhei')
+  t.deepEqual(lemma.resolve(['ABS','PL','PP','EXT','LOC']), 'caushedhei')
   //*/
   t.end()
 })
