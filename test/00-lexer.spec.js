@@ -11,68 +11,23 @@
 
 'use strict'
 
-var test = require('tape')
+const test = require('tape')
   , lexer = require(__dirname+'/../lib/lexer')()
 
 test('lexer: lexAll a string', function(t) {
-  var expected = [
-    {gloss:'1s'},
-    {inter:'.'},
-    {gloss:'GEN'},
-    {blank: ' '},
-    {gloss:'beautiful'},
-    {inter:'.'},
-    {gloss:'IPFV'},
-    {inter:'.'},
-    {gloss:'ATTR'},
-    {blank: ' '},
-    {gloss:'forest'},
-    {inter:'.'},
-    {gloss:'ABS'},
-    {blank: ' '},
-    {gloss:'2s'},
-    {inter:'.'},
-    {gloss:'NOM'},
-    {blank: ' '},
-    {gloss:'love'},
-    {inter:'.'},
-    {gloss:'IPFV'},
-    {inter:'.'},
-    {gloss:'INT'},
-    {blank: '. '},
-    {gloss:'PRE'},
-    {inter: '.'},
-    {gloss:'yolo'},
-    {inter: '.'},
-    {gloss:'POST'},
-    {blank: '?'}]
-  , actual = lexer.lexAll('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT. PRE.yolo.POST?')
-
-  t.deepEqual(actual, expected)
-  t.end()
-})
-
-test('lexer: lex many strings', function(t) {
-  var expected = [
-    [
+  let expected = [
       {gloss:'1s'},
       {inter:'.'},
       {gloss:'GEN'},
-      {blank: ' '}
-    ],
-    [
+      {blank: ' '},
       {gloss:'beautiful'},
       {inter:'.'},
       {gloss:'IPFV'},
-      {inter:'.'}
-    ],
-    [
+      {inter:'.'},
       {gloss:'ATTR'},
       {blank: ' '},
       {gloss:'forest'},
-      {inter:'.'}
-    ],
-    [
+      {inter:'.'},
       {gloss:'ABS'},
       {blank: ' '},
       {gloss:'2s'},
@@ -83,16 +38,61 @@ test('lexer: lex many strings', function(t) {
       {inter:'.'},
       {gloss:'IPFV'},
       {inter:'.'},
-      {gloss:'INT'}
-    ],
-    {blank: '.'}]
-  , actual = [
-    lexer.lex('1s.GEN beautif'),
-    lexer.lex('ul.IPFV.ATTR'),
-    lexer.lex(' forest.A'),
-    lexer.lex('BS 2s.NOM love.IPFV.INT.'),
-    lexer.flush()
-  ]
+      {gloss:'INT'},
+      {blank: '. '},
+      {gloss:'PRE'},
+      {inter: '.'},
+      {gloss:'yolo'},
+      {inter: '.'},
+      {gloss:'POST'},
+      {blank: '?'}]
+    , actual = lexer.lexAll('1s.GEN beautiful.IPFV.ATTR forest.ABS 2s.NOM love.IPFV.INT. PRE.yolo.POST?')
+
+  t.deepEqual(actual, expected)
+  t.end()
+})
+
+test('lexer: lex many strings', function(t) {
+  let expected = [
+      [
+        {gloss:'1s'},
+        {inter:'.'},
+        {gloss:'GEN'},
+        {blank: ' '}
+      ],
+      [
+        {gloss:'beautiful'},
+        {inter:'.'},
+        {gloss:'IPFV'},
+        {inter:'.'}
+      ],
+      [
+        {gloss:'ATTR'},
+        {blank: ' '},
+        {gloss:'forest'},
+        {inter:'.'}
+      ],
+      [
+        {gloss:'ABS'},
+        {blank: ' '},
+        {gloss:'2s'},
+        {inter:'.'},
+        {gloss:'NOM'},
+        {blank: ' '},
+        {gloss:'love'},
+        {inter:'.'},
+        {gloss:'IPFV'},
+        {inter:'.'},
+        {gloss:'INT'}
+      ],
+      {blank: '.'}]
+    , actual = [
+      lexer.lex('1s.GEN beautif'),
+      lexer.lex('ul.IPFV.ATTR'),
+      lexer.lex(' forest.A'),
+      lexer.lex('BS 2s.NOM love.IPFV.INT.'),
+      lexer.flush()
+    ]
 
   t.deepEqual(actual, expected)
   t.end()
